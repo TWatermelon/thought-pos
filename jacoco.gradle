@@ -1,0 +1,41 @@
+apply plugin: 'jacoco'
+
+jacocoTestReport {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        html.enabled true
+        xml.enabled true
+        csv.enabled false
+    }
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/Demo**'])
+        })
+    }
+}
+
+task checkTestCoverage << {
+    def coverageReportPath = "build/reports/jacoco/test/html/index.html"
+    def coverageFile = new File(coverageReportPath)
+    if(!coverageFile.exists()) return
+
+    def matcher = ( coverageFile.text =~ /<tfoot>(.*)<\/tfoot>/ )
+    def coverageString = new XmlParser().parseText(matcher[0][0])
+
+    def lineCoverageString = coverageString.tr.td[2].text()
+    def branchCoverageString = coverageString.tr.td[4].text()
+    def actualLineCoverage = lineCoverageString.substring(0,lineCoverageString.length() - 1)
+    def actualBranchCoverage = branchCoverageString.substring(0,branchCoverageString.length() - 1)
+
+    if(actualLineCoverage.isInteger() && actualLineCoverage.toInteger() < expectedLineCoverage.toInteger()) {
+        throw new RuntimeException("Code line coverage is " + actualLineCoverage + "%, but expected is " + expectedLineCoverage + "%.\n" + "Please check " + coverageReportPath + " for more detail.")
+    }
+
+    if(actualBranchCoverage.isInteger() && actualBranchCoverage.toInteger() < expectedBranchCoverage.toInteger()) {
+        throw new RuntimeException("Code branch coverage is " + actualBranchCoverage + "%, but expected is " + expectedBranchCoverage + "%.\n" + "Please check " + coverageReportPath + " for more detail.")
+    }
+}
+
+checkTestCoverage.dependsOn jacocoTestReport
+build.dependsOn checkTestCoverage
