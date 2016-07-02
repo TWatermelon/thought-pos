@@ -1,6 +1,4 @@
-# Let's fight
-
-### Project Board
+# Come on! Let's fight
 
 ### How to Start
 
