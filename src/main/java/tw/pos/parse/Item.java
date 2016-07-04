@@ -1,7 +1,23 @@
 package tw.pos.parse;
 
-/**
- * Created by lijun on 16-7-4.
- */
 public class Item {
+    private String barcode;
+    private int amount;
+
+    public Item(String barcode, int amount) {
+        this.barcode = barcode;
+        this.amount = amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
 }
