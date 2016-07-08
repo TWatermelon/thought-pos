@@ -1,4 +1,4 @@
-package tw.pos.parse;
+package tw.thoughtpos.parse;
 
 import static java.util.stream.Collectors.toList;
 

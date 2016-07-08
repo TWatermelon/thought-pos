@@ -1,8 +1,9 @@
-package tw.pos.parse;
+package tw.thoughtpos.parse;
 
 public class Item {
     private String barcode;
     private int amount;
+    private double totalPrice;
 
     public Item(String barcode, int amount) {
         this.barcode = barcode;
@@ -19,5 +20,13 @@ public class Item {
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 }

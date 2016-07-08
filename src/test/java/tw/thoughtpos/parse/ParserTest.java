@@ -1,4 +1,4 @@
-package tw.pos.parse;
+package tw.thoughtpos.parse;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
