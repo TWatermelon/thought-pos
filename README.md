@@ -1,5 +1,8 @@
 # Come on! Let's fight
 
+### Travis CI
+[https://travis-ci.org/TWatermelon/thought-pos](https://travis-ci.org/TWatermelon/thought-pos)
+
 ### How to Start
 
 #### Generate IntelliJ IDEA project
