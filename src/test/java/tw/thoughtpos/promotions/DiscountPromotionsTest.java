@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import tw.thoughtpos.domain.Goods;
-import tw.thoughtpos.parse.Item;
+import tw.thoughtpos.domain.ShoppingItem;
 
 
 public class DiscountPromotionsTest {
@@ -13,7 +13,7 @@ public class DiscountPromotionsTest {
 
     @Test
     public void should_calculate_right_benefit() {
-        Item item = new Item(BARCODE, 10);
+        ShoppingItem item = new ShoppingItem(BARCODE, 10);
         item.setGoods(createGoods());
 
         Benefit benefit = new DiscountPromotions(0.8d).calculate(item);

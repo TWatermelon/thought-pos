@@ -1,6 +1,6 @@
 package tw.thoughtpos.promotions;
 
-import tw.thoughtpos.parse.Item;
+import tw.thoughtpos.domain.ShoppingItem;
 
 public class DiscountPromotions implements Promotions {
     private double rate;
@@ -9,7 +9,7 @@ public class DiscountPromotions implements Promotions {
         this.rate = rate;
     }
 
-    public Benefit calculate(Item item) {
+    public Benefit calculate(ShoppingItem item) {
         Benefit benefit = new Benefit();
         benefit.setAllowance((1 - rate) * item.getSubtotal());
         return benefit;

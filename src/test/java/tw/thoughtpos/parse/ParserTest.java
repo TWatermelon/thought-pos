@@ -10,6 +10,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import tw.thoughtpos.domain.ShoppingItem;
+
 public class ParserTest {
 
     private List<String> lines;
@@ -22,7 +24,7 @@ public class ParserTest {
 
     @Test
     public void should_return_items_given_lines() {
-        List<Item> items = parser.parse(lines);
+        List<ShoppingItem> items = parser.parse(lines);
         assertThat(items.size(), is(4));
         assertItem(items.get(0), "ITEM00001", 1);
         assertItem(items.get(1), "ITEM00002", 5);
@@ -30,10 +32,11 @@ public class ParserTest {
         assertItem(items.get(3), "ITEM00003", 1);
     }
 
-    private void assertItem(Item item, String expectedBarcode, int expectedAmount) {
+    private void assertItem(ShoppingItem item, String expectedBarcode, int expectedAmount) {
         assertThat(item.getBarcode(), is(expectedBarcode));
         assertThat(item.getAmount(), is(expectedAmount));
     }
+
 
     @Test
     public void should_return_barcode_amount_map_given_lines() {

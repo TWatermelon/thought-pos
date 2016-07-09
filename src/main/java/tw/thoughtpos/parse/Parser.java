@@ -6,14 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import tw.thoughtpos.domain.ShoppingItem;
+
 public class Parser {
 
-    public List<Item> parse(List<String> lines) {
+    public List<ShoppingItem> parse(List<String> lines) {
         return lines.stream().map(this::getItem).collect(toList());
     }
 
-    private Item getItem(String line) {
-        return new Item(this.getBarcode(line), this.getAmount(line));
+    private ShoppingItem getItem(String line) {
+        return new ShoppingItem(this.getBarcode(line), this.getAmount(line));
     }
 
     private String getBarcode(String line) {

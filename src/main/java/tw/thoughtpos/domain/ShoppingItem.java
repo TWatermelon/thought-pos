@@ -1,13 +1,11 @@
-package tw.thoughtpos.parse;
+package tw.thoughtpos.domain;
 
-import tw.thoughtpos.domain.Goods;
-
-public class Item {
+public class ShoppingItem {
     private String barcode;
     private int amount;
     private Goods goods;
 
-    public Item(String barcode, int amount) {
+    public ShoppingItem(String barcode, int amount) {
         this.barcode = barcode;
         this.amount = amount;
         this.goods = new Goods(barcode);

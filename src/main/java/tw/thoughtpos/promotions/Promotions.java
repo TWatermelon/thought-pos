@@ -1,7 +1,7 @@
 package tw.thoughtpos.promotions;
 
-import tw.thoughtpos.parse.Item;
+import tw.thoughtpos.domain.ShoppingItem;
 
 public interface Promotions {
-    Benefit calculate(Item item);
+    Benefit calculate(ShoppingItem item);
 }
