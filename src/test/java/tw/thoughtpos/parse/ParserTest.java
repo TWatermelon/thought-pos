@@ -7,14 +7,21 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ParserTest {
 
+    private List<String> lines;
+    private Parser parser = new Parser();
+
+    @Before
+    public void setUp() {
+        lines = asList("ITEM00001", "ITEM00002-5", "ITEM00001", "ITEM00003");
+    }
+
     @Test
     public void should_return_items_given_lines() {
-        List<String> lines = asList("ITEM00001", "ITEM00002-5", "ITEM00001", "ITEM00003");
-        Parser parser = new Parser();
         List<Item> items = parser.parse(lines);
         assertThat(items.size(), is(4));
         assertItem(items.get(0), "ITEM00001", 1);
@@ -30,8 +37,6 @@ public class ParserTest {
 
     @Test
     public void should_return_barcode_amount_map_given_lines() {
-        List<String> lines = asList("ITEM00001", "ITEM00002-5", "ITEM00001", "ITEM00003");
-        Parser parser = new Parser();
         Map<String, Integer> barcodeAmountMap = parser.get_barcode_amount_map(lines);
         assertThat(barcodeAmountMap.size(), is(3));
         assertThat(barcodeAmountMap.get("ITEM00001"), is(2));
