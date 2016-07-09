@@ -9,14 +9,14 @@ import java.util.Map;
 
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class Parser {
+public class ItemParser {
 
     private static final String SPLIT_CHAR = "-";
     private static final int DEFAULT_VALUE = 1;
-    private static final int SPLIT_LENGHTH = 2;
+    private static final int SPLIT_LENGTH = 2;
 
     public static List<ShoppingItem> parseToItem(List<String> lines) {
-        List<ShoppingItem> shoppingItems = lines.stream().map(Parser::splitOutItem).collect(toList());
+        List<ShoppingItem> shoppingItems = lines.stream().map(ItemParser::splitOutItem).collect(toList());
         return merge(shoppingItems);
     }
 
@@ -37,7 +37,7 @@ public class Parser {
 
     private static ShoppingItem splitOutItem(String line) {
         String[] splitResult = line.split(SPLIT_CHAR);
-        int amount = splitResult.length == SPLIT_LENGHTH ? parseInt(splitResult[1]) : DEFAULT_VALUE;
+        int amount = splitResult.length == SPLIT_LENGTH ? parseInt(splitResult[1]) : DEFAULT_VALUE;
         return new ShoppingItem(splitResult[0], amount);
     }
 }

@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class ParserTest {
+public class ItemParserTest {
 
     private List<String> lines;
 
@@ -22,7 +22,7 @@ public class ParserTest {
 
     @Test
     public void should_return_items_given_lines() {
-        List<ShoppingItem> items = Parser.parseToItem(lines);
+        List<ShoppingItem> items = ItemParser.parseToItem(lines);
         assertThat(items.size(), is(3));
         assertItem(items.get(0), "ITEM00001", 2);
         assertItem(items.get(1), "ITEM00002", 5);
