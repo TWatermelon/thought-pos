@@ -21,8 +21,8 @@ public class ParserTest {
         assertItem(items.get(3), "ITEM00003", 1);
     }
 
-    private void assertItem(Item item, String barcode, int amount) {
-        assertThat(item.getBarcode(), is(barcode));
-        assertThat(item.getAmount(), is(amount));
+    private void assertItem(Item item, String expectedBarcode, int expectedAmount) {
+        assertThat(item.getBarcode(), is(expectedBarcode));
+        assertThat(item.getAmount(), is(expectedAmount));
     }
 }

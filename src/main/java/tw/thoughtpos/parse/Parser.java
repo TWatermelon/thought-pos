@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 public class Parser {
+
     public List<Item> parse(List<String> lines) {
         return lines.stream().map(this::getItem).collect(toList());
     }
