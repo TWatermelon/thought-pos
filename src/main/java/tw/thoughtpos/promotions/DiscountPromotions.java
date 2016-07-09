@@ -11,7 +11,7 @@ public class DiscountPromotions implements Promotions {
 
     public Benefit calculate(Item item) {
         Benefit benefit = new Benefit();
-        benefit.setAllowance(rate * item.getTotalPrice());
+        benefit.setAllowance((1 - rate) * item.getSubtotal());
         return benefit;
     }
 }

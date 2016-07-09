@@ -1,22 +1,28 @@
 package tw.thoughtpos.promotions;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
+import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.parse.Item;
 
+
 public class DiscountPromotionsTest {
+
+    private static final String BARCODE = "ITEM000001";
+
     @Test
     public void should_calculate_right_benefit() {
-        Item item = new Item("ITEM000001", 10);
-        Benefit benefit;
-        item.setTotalPrice(100d);
-        benefit = new DiscountPromotions(0.8d).calculate(item);
-        assertThat(benefit.getAllowance(), is(80d));
-        item.setTotalPrice(100d);
-        benefit = new DiscountPromotions(0.75d).calculate(item);
-        assertThat(benefit.getAllowance(), is(75d));
+        Item item = new Item(BARCODE, 10);
+        item.setGoods(createGoods());
+
+        Benefit benefit = new DiscountPromotions(0.8d).calculate(item);
+        assertEquals(benefit.getAllowance(), 40d, 0.00001);
+    }
+
+    private Goods createGoods() {
+        Goods goods = new Goods(BARCODE);
+        goods.setPrice(20d);
+        return goods;
     }
 }
