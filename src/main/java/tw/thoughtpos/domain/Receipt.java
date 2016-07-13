@@ -9,6 +9,8 @@ import tw.thoughtpos.register.Record;
 public class Receipt {
     private List<ShoppingItem> shoppingItems;
     private Map<String, List<Record>> mapper = new LinkedHashMap<>();
+    private double orderSaveOfFullFree = 0d;
+    private double totalMoneyOfFullFreeGoods = 0d;
 
     public void setShoppingItems(List<ShoppingItem> shoppingItems) {
         this.shoppingItems = shoppingItems;
@@ -24,5 +26,21 @@ public class Receipt {
 
     public Map<String, List<Record>> getMapper() {
         return mapper;
+    }
+
+    public double getOrderSaveOfFullFree() {
+        return orderSaveOfFullFree;
+    }
+
+    public double getTotalMoneyOfFullFreeGoods() {
+        return totalMoneyOfFullFreeGoods;
+    }
+
+    public void setOrderSaveOfFullFree(double orderSaveOfFullFree) {
+        this.orderSaveOfFullFree = orderSaveOfFullFree;
+    }
+
+    public void setTotalMoneyOfFullFreeGoods(double totalMoneyOfFullFreeGoods) {
+        this.totalMoneyOfFullFreeGoods = totalMoneyOfFullFreeGoods;
     }
 }

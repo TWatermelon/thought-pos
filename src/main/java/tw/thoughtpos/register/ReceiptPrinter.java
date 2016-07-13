@@ -1,6 +1,12 @@
 package tw.thoughtpos.register;
 
-import java.text.DecimalFormat;
+import static tw.thoughtpos.utils.ConstantUtil.COMMA;
+import static tw.thoughtpos.utils.ConstantUtil.MONEY_UNIT;
+import static tw.thoughtpos.utils.ConstantUtil.NEW_LINE_CHAR;
+import static tw.thoughtpos.utils.ConstantUtil.SEPARATOR_LINE;
+import static tw.thoughtpos.utils.ConstantUtil.TITLE;
+import static tw.thoughtpos.utils.FormatUtil.format;
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,12 +14,6 @@ import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 
 public class ReceiptPrinter {
-
-    private static final String TITLE = "***<没钱赚商店>购物清单***" + "\n";
-    private static final String SEPARATOR_LINE = "----------" + "\n";
-    private static final String COMMA = ",";
-    private static final String FORMAT_STR = "0.00";
-    private static final String MONEY_UNIT = "（元）";
 
     public static void print(Receipt receipt, PosPrinter printer) {
         double totalPrice = 0d;
@@ -25,9 +25,12 @@ public class ReceiptPrinter {
             totalPrice += getSubtotalPrice(shoppingItem);
             totalSave += getAllowance(shoppingItem);
         }
+        totalPrice -= receipt.getOrderSaveOfFullFree();
+        totalSave += receipt.getOrderSaveOfFullFree();
         builder.append(getDiscountInfo(receipt))
+                .append(getTotalFullFreeInfo(receipt))
                 .append(SEPARATOR_LINE)
-                .append("总计：").append(format(totalPrice)).append(MONEY_UNIT).append("\n")
+                .append("总计：").append(format(totalPrice)).append(MONEY_UNIT).append(NEW_LINE_CHAR)
                 .append(getTotalSaveInfo(totalSave));
         printer.print(builder.toString());
     }
@@ -41,12 +44,24 @@ public class ReceiptPrinter {
             return builder.toString();
     }
 
+    private static String getTotalFullFreeInfo(Receipt receipt) {
+        StringBuilder builder = new StringBuilder();
+        double totalMoneyOfGoodsWithFullFree = receipt.getTotalMoneyOfFullFreeGoods();
+        if (totalMoneyOfGoodsWithFullFree > 0) {
+            builder.append("参与优惠总价：")
+                    .append(format(totalMoneyOfGoodsWithFullFree)).append(MONEY_UNIT).append(COMMA)
+                    .append("优惠：").append(format(receipt.getOrderSaveOfFullFree())).append(MONEY_UNIT)
+                    .append(NEW_LINE_CHAR);
+        }
+        return builder.toString();
+    }
+
     private static String getAllDiscountInfo(String type, List<Record> records) {
         StringBuilder builder = new StringBuilder();
         if (records.size() > 0) {
             builder.append(SEPARATOR_LINE);
-            builder.append(type + "：").append("\n");
-            records.forEach(record -> builder.append(record.showRecord()).append("\n"));
+            builder.append(type + "：").append(NEW_LINE_CHAR);
+            records.forEach(record -> builder.append(record.showRecord()).append(NEW_LINE_CHAR));
         } else {
             builder.append("");
         }
@@ -57,7 +72,7 @@ public class ReceiptPrinter {
         StringBuilder  builder = new StringBuilder();
             return totalSave > 0 ? builder.append("节省：")
                     .append(format(totalSave))
-                    .append(MONEY_UNIT).append("\n").toString()
+                    .append(MONEY_UNIT).append(NEW_LINE_CHAR).toString()
                     : builder.append("").toString();
 
     }
@@ -69,7 +84,7 @@ public class ReceiptPrinter {
                 .append(getPrice(shoppingItem))
                 .append(getSubtotalInfo(shoppingItem))
                 .append(getAllowanceInfo(shoppingItem))
-                .append("\n").toString();
+                .append(NEW_LINE_CHAR).toString();
     }
 
     private static double getSubtotalPrice(ShoppingItem shoppingItem) {
@@ -108,10 +123,6 @@ public class ReceiptPrinter {
                 .append(format(shoppingItem.getGoods().getPrice()))
                 .append(MONEY_UNIT)
                 .append(COMMA).toString();
-    }
-
-    private static String format(double price) {
-        return new DecimalFormat(FORMAT_STR).format(price);
     }
 
     private static String getName(ShoppingItem shoppingItem) {

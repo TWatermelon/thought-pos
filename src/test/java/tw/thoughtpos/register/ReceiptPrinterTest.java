@@ -63,6 +63,50 @@ public class ReceiptPrinterTest {
         verify(printer).print(getExpectedContentWithMultiplePromotions());
     }
 
+    @Test
+    public void should_print_receipt_with_full_free_promotions() {
+        PosPrinter printer = mock(PosPrinter.class);
+        ShoppingItem shoppingItem0 = getShoppingItem("ITEM00001", 4,
+                createGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(0.00));
+        Map<String, List<Record>> mapper = new LinkedHashMap<>();
+        List<Record> fullFreeRecords = new ArrayList<>();
+        fullFreeRecords.add(createFullFreeRecord(shoppingItem0));
+        receipt.setMapper(mapper);
+        mapper.put("不参与优惠商品", fullFreeRecords);
+
+        ShoppingItem shoppingItem = getShoppingItem("ITEM00003", 5,
+                createGoods("ITEM00003", 50.00d, "茶壶", "个"), createBenefit(0.00));
+
+        shoppingItems.add(shoppingItem);
+        shoppingItems.add(shoppingItem0);
+        receipt.setShoppingItems(shoppingItems);
+        receipt.setOrderSaveOfFullFree(20.00d);
+        receipt.setTotalMoneyOfFullFreeGoods(230.00d);
+        ReceiptPrinter.print(receipt, printer);
+        verify(printer).print(getExpectedContentWithFullFreePromotions());
+    }
+
+    private String getExpectedContentWithFullFreePromotions() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("***<没钱赚商店>购物清单***").append("\n")
+                .append("名称：茶壶,数量：5个,单价：50.00（元）,小计:250.00（元）").append("\n")
+                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:20.00（元）").append("\n")
+                .append("----------").append("\n")
+                .append("不参与优惠商品：").append("\n")
+                .append("名称：苹果,价格：20.00（元）").append("\n")
+                .append("参与优惠总价：230.00（元）,优惠：20.00（元）").append("\n")
+                .append("----------").append("\n")
+                .append("总计：250.00（元）").append("\n")
+                .append("节省：20.00（元）").append("\n");
+        return builder.toString();
+    }
+
+    private Record createFullFreeRecord(ShoppingItem shoppingItem) {
+        FullFreeRecord fullFreeRecord = new FullFreeRecord();
+        fullFreeRecord.setShoppingItem(shoppingItem);
+        return fullFreeRecord;
+    }
+
     private String getExpectedContentWithMultiplePromotions() {
         StringBuilder builder = new StringBuilder();
         builder.append("***<没钱赚商店>购物清单***").append("\n")

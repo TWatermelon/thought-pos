@@ -5,10 +5,6 @@ import tw.thoughtpos.domain.ShoppingItem;
 
 public class WholesaleRecord extends Record {
 
-    public void setShoppingItem(ShoppingItem shoppingItem) {
-        this.shoppingItem = shoppingItem;
-    }
-
     @Override
     public String showRecord() {
         ShoppingItem shoppingItem = getShoppingItem();
@@ -20,5 +16,9 @@ public class WholesaleRecord extends Record {
 
     public ShoppingItem getShoppingItem() {
         return shoppingItem;
+    }
+
+    public void setShoppingItem(ShoppingItem shoppingItem) {
+        this.shoppingItem = shoppingItem;
     }
 }
