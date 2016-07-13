@@ -80,8 +80,8 @@ public class ReceiptPrinterTest {
         shoppingItems.add(shoppingItem);
         shoppingItems.add(shoppingItem0);
         receipt.setShoppingItems(shoppingItems);
-        receipt.setOrderSaveOfFullFree(20.00d);
-        receipt.setTotalMoneyOfFullFreeGoods(230.00d);
+        receipt.setOrderSaveOfFullMinus(20.00d);
+        receipt.setTotalMoneyOfFullMinusGoods(230.00d);
         ReceiptPrinter.print(receipt, printer);
         verify(printer).print(getExpectedContentWithFullFreePromotions());
     }
@@ -102,7 +102,7 @@ public class ReceiptPrinterTest {
     }
 
     private Record createFullFreeRecord(ShoppingItem shoppingItem) {
-        FullFreeRecord fullFreeRecord = new FullFreeRecord();
+        FullMinusRecord fullFreeRecord = new FullMinusRecord();
         fullFreeRecord.setShoppingItem(shoppingItem);
         return fullFreeRecord;
     }

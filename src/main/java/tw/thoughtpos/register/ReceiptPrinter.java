@@ -25,8 +25,8 @@ public class ReceiptPrinter {
             totalPrice += getSubtotalPrice(shoppingItem);
             totalSave += getAllowance(shoppingItem);
         }
-        totalPrice -= receipt.getOrderSaveOfFullFree();
-        totalSave += receipt.getOrderSaveOfFullFree();
+        totalPrice -= receipt.getOrderSaveOfFullMinus();
+        totalSave += receipt.getOrderSaveOfFullMinus();
         builder.append(getDiscountInfo(receipt))
                 .append(getTotalFullFreeInfo(receipt))
                 .append(SEPARATOR_LINE)
@@ -46,11 +46,11 @@ public class ReceiptPrinter {
 
     private static String getTotalFullFreeInfo(Receipt receipt) {
         StringBuilder builder = new StringBuilder();
-        double totalMoneyOfGoodsWithFullFree = receipt.getTotalMoneyOfFullFreeGoods();
+        double totalMoneyOfGoodsWithFullFree = receipt.getTotalMoneyOfFullMinusGoods();
         if (totalMoneyOfGoodsWithFullFree > 0) {
             builder.append("参与优惠总价：")
                     .append(format(totalMoneyOfGoodsWithFullFree)).append(MONEY_UNIT).append(COMMA)
-                    .append("优惠：").append(format(receipt.getOrderSaveOfFullFree())).append(MONEY_UNIT)
+                    .append("优惠：").append(format(receipt.getOrderSaveOfFullMinus())).append(MONEY_UNIT)
                     .append(NEW_LINE_CHAR);
         }
         return builder.toString();
@@ -62,8 +62,6 @@ public class ReceiptPrinter {
             builder.append(SEPARATOR_LINE);
             builder.append(type + "：").append(NEW_LINE_CHAR);
             records.forEach(record -> builder.append(record.showRecord()).append(NEW_LINE_CHAR));
-        } else {
-            builder.append("");
         }
         return builder.toString();
     }

@@ -12,7 +12,7 @@ import tw.thoughtpos.domain.ShoppingItem;
 public class FullFreeRecordTest {
     @Test
     public void should_return_discount_info() {
-        FullFreeRecord fullFreeRecord = new FullFreeRecord();
+        FullMinusRecord fullFreeRecord = new FullMinusRecord();
         ShoppingItem shoppingItem = new ShoppingItem("ITEM00001", 5);
         Goods goods = new Goods("ITEM00001");
         goods.setName("苹果");
