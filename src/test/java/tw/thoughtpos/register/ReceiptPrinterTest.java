@@ -32,7 +32,7 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_without_promotions_goods() throws Exception {
         PosPrinter printer = mock(PosPrinter.class);
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(0.00));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0.00));
         shoppingItems.add(shoppingItem);
         receipt.setShoppingItems(shoppingItems);
         ReceiptPrinter.getInstance().print(receipt, printer);
@@ -52,10 +52,10 @@ public class ReceiptPrinterTest {
         receipt.setMapper(mapper);
 
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(5.00));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(5.00));
         shoppingItems.add(shoppingItem0);
         ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00002", 12,
-                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), createBenefit(3.00));
+                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), generateBenefit(3.00));
         shoppingItems.add(shoppingItem1);
 
         receipt.setShoppingItems(shoppingItems);
@@ -64,10 +64,10 @@ public class ReceiptPrinterTest {
     }
 
     @Test
-    public void should_print_receipt_with_full_free_promotions() {
+    public void should_print_receipt_with_full_minus_promotions() {
         PosPrinter printer = mock(PosPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(0.00));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0.00));
         Map<String, List<PromotionsRecord>> mapper = new LinkedHashMap<>();
         List<PromotionsRecord> fullFreeRecords = new ArrayList<>();
         fullFreeRecords.add(createFullFreeRecord(shoppingItem0));
@@ -75,7 +75,7 @@ public class ReceiptPrinterTest {
         mapper.put("不参与优惠商品", fullFreeRecords);
 
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00003", 5,
-                generateGoods("ITEM00003", 50.00d, "茶壶", "个"), createBenefit(0.00));
+                generateGoods("ITEM00003", 50.00d, "茶壶", "个"), generateBenefit(0.00));
 
         shoppingItems.add(shoppingItem);
         shoppingItems.add(shoppingItem0);
@@ -143,7 +143,7 @@ public class ReceiptPrinterTest {
     private DiscountRecord createDiscountRecord() {
         DiscountRecord discountRecord = new DiscountRecord("七五折");
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(5.00));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(5.00));
         discountRecord.setShoppingItem(shoppingItem);
         return discountRecord;
     }
@@ -151,12 +151,12 @@ public class ReceiptPrinterTest {
     private WholesaleRecord createWholesaleRecord() {
         WholesaleRecord wholesaleRecord = new WholesaleRecord();
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00002", 12,
-                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), createBenefit(2.00));
+                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), generateBenefit(2.00));
         wholesaleRecord.setShoppingItem(shoppingItem);
         return wholesaleRecord;
     }
 
-    private Benefit createBenefit(double allowance) {
+    private Benefit generateBenefit(double allowance) {
         Benefit benefit = new Benefit();
         benefit.setAllowance(allowance);
         return benefit;

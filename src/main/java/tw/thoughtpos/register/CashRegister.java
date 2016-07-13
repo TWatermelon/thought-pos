@@ -13,14 +13,16 @@ import java.util.Map;
 import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class CashRegister {
+public final class CashRegister {
     private Receipt receipt;
 
     private CashRegister() {
     }
 
-    public CashRegister(Receipt receipt) {
-        this.receipt = receipt;
+    public static CashRegister generateCashRegister(Receipt receipt) {
+        CashRegister cashRegister = new CashRegister();
+        cashRegister.setReceipt(receipt);
+        return cashRegister;
     }
 
     public String getReceiptInfo() {
@@ -86,5 +88,7 @@ public class CashRegister {
         return shoppingItem.toString();
     }
 
-
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
+    }
 }
