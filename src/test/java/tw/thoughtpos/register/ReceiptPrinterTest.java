@@ -31,58 +31,58 @@ public class ReceiptPrinterTest {
     @Test
     public void should_print_receipt_without_promotions_goods() throws Exception {
         PosPrinter printer = mock(PosPrinter.class);
-        ShoppingItem shoppingItem = getShoppingItem("ITEM00001", 4,
-                createGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(0.00));
+        ShoppingItem shoppingItem = generateShoppingItem("ITEM00001", 4,
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(0.00));
         shoppingItems.add(shoppingItem);
         receipt.setShoppingItems(shoppingItems);
-        ReceiptPrinter.print(receipt, printer);
+        ReceiptPrinter.getInstance().print(receipt, printer);
         verify(printer).print(getExpectedContentWithoutPromotions());
     }
 
     @Test
     public void should_print_receipt_with_multiple_promotions_goods() throws Exception {
         PosPrinter printer = mock(PosPrinter.class);
-        Map<String, List<Record>> mapper = new LinkedHashMap<>();
-        List<Record> wholesaleRecords = new ArrayList<>();
+        Map<String, List<PromotionsRecord>> mapper = new LinkedHashMap<>();
+        List<PromotionsRecord> wholesaleRecords = new ArrayList<>();
         wholesaleRecords.add(createWholesaleRecord());
         mapper.put("批发价出售商品", wholesaleRecords);
-        List<Record> discountRecords = new ArrayList<>();
+        List<PromotionsRecord> discountRecords = new ArrayList<>();
         discountRecords.add(createDiscountRecord());
         mapper.put("单品打折商品", discountRecords);
         receipt.setMapper(mapper);
 
-        ShoppingItem shoppingItem0 = getShoppingItem("ITEM00001", 4,
-                createGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(5.00));
+        ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(5.00));
         shoppingItems.add(shoppingItem0);
-        ShoppingItem shoppingItem1 = getShoppingItem("ITEM00002", 12,
-                createGoods("ITEM00002", 5.00d, "可乐", "瓶"), createBenefit(3.00));
+        ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00002", 12,
+                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), createBenefit(3.00));
         shoppingItems.add(shoppingItem1);
 
         receipt.setShoppingItems(shoppingItems);
-        ReceiptPrinter.print(receipt, printer);
+        ReceiptPrinter.getInstance().print(receipt, printer);
         verify(printer).print(getExpectedContentWithMultiplePromotions());
     }
 
     @Test
     public void should_print_receipt_with_full_free_promotions() {
         PosPrinter printer = mock(PosPrinter.class);
-        ShoppingItem shoppingItem0 = getShoppingItem("ITEM00001", 4,
-                createGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(0.00));
-        Map<String, List<Record>> mapper = new LinkedHashMap<>();
-        List<Record> fullFreeRecords = new ArrayList<>();
+        ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(0.00));
+        Map<String, List<PromotionsRecord>> mapper = new LinkedHashMap<>();
+        List<PromotionsRecord> fullFreeRecords = new ArrayList<>();
         fullFreeRecords.add(createFullFreeRecord(shoppingItem0));
         receipt.setMapper(mapper);
         mapper.put("不参与优惠商品", fullFreeRecords);
 
-        ShoppingItem shoppingItem = getShoppingItem("ITEM00003", 5,
-                createGoods("ITEM00003", 50.00d, "茶壶", "个"), createBenefit(0.00));
+        ShoppingItem shoppingItem = generateShoppingItem("ITEM00003", 5,
+                generateGoods("ITEM00003", 50.00d, "茶壶", "个"), createBenefit(0.00));
 
         shoppingItems.add(shoppingItem);
         shoppingItems.add(shoppingItem0);
         receipt.setShoppingItems(shoppingItems);
         receipt.setOrderSaveOfFullMinus(20.00d);
         receipt.setTotalMoneyOfFullMinusGoods(230.00d);
-        ReceiptPrinter.print(receipt, printer);
+        ReceiptPrinter.getInstance().print(receipt, printer);
         verify(printer).print(getExpectedContentWithFullFreePromotions());
     }
 
@@ -101,7 +101,7 @@ public class ReceiptPrinterTest {
         return builder.toString();
     }
 
-    private Record createFullFreeRecord(ShoppingItem shoppingItem) {
+    private PromotionsRecord createFullFreeRecord(ShoppingItem shoppingItem) {
         FullMinusRecord fullFreeRecord = new FullMinusRecord();
         fullFreeRecord.setShoppingItem(shoppingItem);
         return fullFreeRecord;
@@ -133,7 +133,7 @@ public class ReceiptPrinterTest {
         return builder.toString();
     }
 
-    private ShoppingItem getShoppingItem(String barcode, int amount, Goods goods, Benefit benefit) {
+    private ShoppingItem generateShoppingItem(String barcode, int amount, Goods goods, Benefit benefit) {
         ShoppingItem shoppingItem = new ShoppingItem(barcode, amount);
         shoppingItem.setBenefit(benefit);
         shoppingItem.setGoods(goods);
@@ -142,16 +142,16 @@ public class ReceiptPrinterTest {
 
     private DiscountRecord createDiscountRecord() {
         DiscountRecord discountRecord = new DiscountRecord("七五折");
-        ShoppingItem shoppingItem = getShoppingItem("ITEM00001", 4,
-                createGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(5.00));
+        ShoppingItem shoppingItem = generateShoppingItem("ITEM00001", 4,
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), createBenefit(5.00));
         discountRecord.setShoppingItem(shoppingItem);
         return discountRecord;
     }
 
     private WholesaleRecord createWholesaleRecord() {
         WholesaleRecord wholesaleRecord = new WholesaleRecord();
-        ShoppingItem shoppingItem = getShoppingItem("ITEM00002", 12,
-                createGoods("ITEM00002", 5.00d, "可乐", "瓶"), createBenefit(2.00));
+        ShoppingItem shoppingItem = generateShoppingItem("ITEM00002", 12,
+                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), createBenefit(2.00));
         wholesaleRecord.setShoppingItem(shoppingItem);
         return wholesaleRecord;
     }
@@ -162,7 +162,7 @@ public class ReceiptPrinterTest {
         return benefit;
     }
 
-    private Goods createGoods(String barcode, double price, String name, String unit) {
+    private Goods generateGoods(String barcode, double price, String name, String unit) {
         Goods goods = new Goods(barcode);
         goods.setPrice(price);
         goods.setName(name);

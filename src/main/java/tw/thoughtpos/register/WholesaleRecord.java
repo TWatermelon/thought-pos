@@ -3,7 +3,7 @@ package tw.thoughtpos.register;
 import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class WholesaleRecord extends Record {
+public class WholesaleRecord extends PromotionsRecord {
 
     @Override
     public String showRecord() {

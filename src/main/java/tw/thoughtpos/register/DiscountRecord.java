@@ -2,7 +2,7 @@ package tw.thoughtpos.register;
 
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class DiscountRecord extends Record {
+public class DiscountRecord extends PromotionsRecord {
     private String discountType;
 
     public DiscountRecord(String discountType) {

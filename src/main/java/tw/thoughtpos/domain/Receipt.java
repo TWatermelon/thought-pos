@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import tw.thoughtpos.register.Record;
+import tw.thoughtpos.register.PromotionsRecord;
 
 public class Receipt {
     private List<ShoppingItem> shoppingItems = new LinkedList<>();
-    private Map<String, List<Record>> mapper = new LinkedHashMap<>();
+    private Map<String, List<PromotionsRecord>> mapper = new LinkedHashMap<>();
     private double orderSaveOfFullMinus = 0d;
     private double totalMoneyOfFullMinusGoods = 0d;
 
@@ -21,11 +21,11 @@ public class Receipt {
         return shoppingItems;
     }
 
-    public void setMapper(Map<String, List<Record>> mapper) {
+    public void setMapper(Map<String, List<PromotionsRecord>> mapper) {
         this.mapper = mapper;
     }
 
-    public Map<String, List<Record>> getMapper() {
+    public Map<String, List<PromotionsRecord>> getMapper() {
         return mapper;
     }
 

@@ -13,50 +13,54 @@ import java.util.Map;
 import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class ReceiptPrinter {
+public final class ReceiptPrinter {
+    private static  ReceiptPrinter receiptPrinter = new ReceiptPrinter();
 
-    public static void print(Receipt receipt, PosPrinter printer) {
+    private ReceiptPrinter() {
+    }
+
+    public void print(Receipt receipt, PosPrinter printer) {
         double totalPrice = 0d;
         double totalSave = 0d;
         StringBuilder builder = new StringBuilder();
         builder.append(TITLE);
         for (ShoppingItem shoppingItem : receipt.getShoppingItems()) {
             builder.append(getItemDetail(shoppingItem));
-            totalPrice += getSubtotalPrice(shoppingItem);
-            totalSave += getAllowance(shoppingItem);
+            totalPrice += shoppingItem.getSubtotalPrice();
+            totalSave += shoppingItem.getAllowance();
         }
         totalPrice -= receipt.getOrderSaveOfFullMinus();
         totalSave += receipt.getOrderSaveOfFullMinus();
-        builder.append(getDiscountInfo(receipt))
-                .append(getTotalFullFreeInfo(receipt))
+        builder.append(getAllPromotionsInfo(receipt))
+                .append(getTotalFullMinusInfo(receipt))
                 .append(SEPARATOR_LINE)
                 .append("总计：").append(format(totalPrice)).append(MONEY_UNIT).append(NEW_LINE_CHAR)
                 .append(getTotalSaveInfo(totalSave));
         printer.print(builder.toString());
     }
 
-    private static String getDiscountInfo(Receipt receipt) {
+    private String getAllPromotionsInfo(Receipt receipt) {
         StringBuilder builder = new StringBuilder();
-        Map<String, List<Record>> mapper = receipt.getMapper();
-            for (Map.Entry<String, List<Record>> entry : mapper.entrySet()) {
-                builder.append(getAllDiscountInfo(entry.getKey(), entry.getValue()));
+        Map<String, List<PromotionsRecord>> mapper = receipt.getMapper();
+            for (Map.Entry<String, List<PromotionsRecord>> entry : mapper.entrySet()) {
+                builder.append(getPromotionsInfo(entry.getKey(), entry.getValue()));
             }
             return builder.toString();
     }
 
-    private static String getTotalFullFreeInfo(Receipt receipt) {
+    private String getTotalFullMinusInfo(Receipt receipt) {
         StringBuilder builder = new StringBuilder();
-        double totalMoneyOfGoodsWithFullFree = receipt.getTotalMoneyOfFullMinusGoods();
-        if (totalMoneyOfGoodsWithFullFree > 0) {
+        double totalMoneyOfGoodsWithFullMinus = receipt.getTotalMoneyOfFullMinusGoods();
+        if (totalMoneyOfGoodsWithFullMinus > 0) {
             builder.append("参与优惠总价：")
-                    .append(format(totalMoneyOfGoodsWithFullFree)).append(MONEY_UNIT).append(COMMA)
+                    .append(format(totalMoneyOfGoodsWithFullMinus)).append(MONEY_UNIT).append(COMMA)
                     .append("优惠：").append(format(receipt.getOrderSaveOfFullMinus())).append(MONEY_UNIT)
                     .append(NEW_LINE_CHAR);
         }
         return builder.toString();
     }
 
-    private static String getAllDiscountInfo(String type, List<Record> records) {
+    private String getPromotionsInfo(String type, List<PromotionsRecord> records) {
         StringBuilder builder = new StringBuilder();
         if (records.size() > 0) {
             builder.append(SEPARATOR_LINE);
@@ -71,62 +75,14 @@ public class ReceiptPrinter {
             return totalSave > 0 ? builder.append("节省：")
                     .append(format(totalSave))
                     .append(MONEY_UNIT).append(NEW_LINE_CHAR).toString()
-                    : builder.append("").toString();
-
+                    : builder.toString();
     }
 
-    private static String getItemDetail(ShoppingItem shoppingItem) {
-        return new StringBuilder().append(getName(shoppingItem))
-                .append(getAmount(shoppingItem))
-                .append(getUnit(shoppingItem))
-                .append(getPrice(shoppingItem))
-                .append(getSubtotalInfo(shoppingItem))
-                .append(getAllowanceInfo(shoppingItem))
-                .append(NEW_LINE_CHAR).toString();
+    private String getItemDetail(ShoppingItem shoppingItem) {
+        return shoppingItem.toString();
     }
 
-    private static double getSubtotalPrice(ShoppingItem shoppingItem) {
-        return shoppingItem.getSubtotal() - getAllowance(shoppingItem);
-    }
-
-    private static String getAllowanceInfo(ShoppingItem shoppingItem) {
-        StringBuilder builder = new StringBuilder();
-        double allowance = getAllowance(shoppingItem);
-        return allowance > 0 ? builder.append(COMMA + "优惠")
-                .append(format(allowance)).append(MONEY_UNIT).toString() : builder.append("").toString();
-    }
-
-    private static double getAllowance(ShoppingItem shoppingItem) {
-        return shoppingItem.getBenefit().getAllowance();
-    }
-
-    private static String getSubtotalInfo(ShoppingItem shoppingItem) {
-        return new StringBuilder().append("小计:")
-                .append(format(getSubtotalPrice(shoppingItem)))
-                .append(MONEY_UNIT).toString();
-    }
-
-    private static StringBuilder getAmount(ShoppingItem shoppingItem) {
-        return new StringBuilder().append("数量：").append(shoppingItem.getAmount());
-    }
-
-    private static String getUnit(ShoppingItem shoppingItem) {
-        return new StringBuilder()
-                .append(shoppingItem.getGoods().getUnit())
-                .append(COMMA).toString();
-    }
-
-    private static String getPrice(ShoppingItem shoppingItem) {
-        return new StringBuilder().append("单价：")
-                .append(format(shoppingItem.getGoods().getPrice()))
-                .append(MONEY_UNIT)
-                .append(COMMA).toString();
-    }
-
-    private static String getName(ShoppingItem shoppingItem) {
-
-        return new StringBuilder().append("名称：")
-                .append(shoppingItem.getGoods().getName())
-                .append(COMMA).toString();
+    public static ReceiptPrinter getInstance() {
+        return receiptPrinter;
     }
 }
