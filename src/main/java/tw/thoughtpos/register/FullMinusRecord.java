@@ -5,7 +5,7 @@ import static tw.thoughtpos.utils.FormatUtil.format;
 import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class FullFreeRecord extends Record {
+public class FullMinusRecord extends PromotionsRecord {
     @Override
     public String showRecord() {
         Goods goods = getShoppingItem().getGoods();
