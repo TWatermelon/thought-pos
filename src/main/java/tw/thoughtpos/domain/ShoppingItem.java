@@ -14,6 +14,8 @@ public class ShoppingItem {
         this.goods = new Goods(barcode);
     }
 
+    public ShoppingItem() { }
+
     public void setAmount(int amount) {
         this.amount = amount;
     }

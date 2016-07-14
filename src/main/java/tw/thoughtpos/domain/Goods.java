@@ -1,9 +1,12 @@
 package tw.thoughtpos.domain;
 
+import tw.thoughtpos.promotions.Promotions;
+
 public class Goods {
     private double price;
     private String name;
     private String unit;
+    private Promotions promotions;
 
     public Goods(String barcode) {
         this.price = 0d;
@@ -31,5 +34,13 @@ public class Goods {
 
     public String getUnit() {
         return unit;
+    }
+
+    public Promotions getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(Promotions promotions) {
+        this.promotions = promotions;
     }
 }
