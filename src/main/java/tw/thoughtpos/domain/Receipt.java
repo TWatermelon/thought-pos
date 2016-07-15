@@ -12,6 +12,8 @@ public class Receipt {
     private Map<String, List<PromotionsRecord>> mapper = new LinkedHashMap<>();
     private double orderSaveOfFullMinus = 0d;
     private double totalMoneyOfFullMinusGoods = 0d;
+    private double totalPrice;
+    private double totalAllowance;
 
     public void setShoppingItems(List<ShoppingItem> shoppingItems) {
         this.shoppingItems = shoppingItems;
@@ -43,5 +45,21 @@ public class Receipt {
 
     public void setTotalMoneyOfFullMinusGoods(double totalMoneyOfFullMinusGoods) {
         this.totalMoneyOfFullMinusGoods = totalMoneyOfFullMinusGoods;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public double getTotalAllowance() {
+        return totalAllowance;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setTotalAllowance(double totalAllowacne) {
+        this.totalAllowance = totalAllowacne;
     }
 }

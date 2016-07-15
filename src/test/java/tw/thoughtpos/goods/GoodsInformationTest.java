@@ -1,4 +1,4 @@
-package tw.thoughtpos.tw.thoughtpos.goods;
+package tw.thoughtpos.goods;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotEquals;

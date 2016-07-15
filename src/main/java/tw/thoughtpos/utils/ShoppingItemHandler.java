@@ -3,8 +3,8 @@ package tw.thoughtpos.utils;
 import java.util.List;
 
 import tw.thoughtpos.domain.ShoppingItem;
+import tw.thoughtpos.goods.GoodsInformation;
 import tw.thoughtpos.promotions.Benefit;
-import tw.thoughtpos.tw.thoughtpos.goods.GoodsInformation;
 
 public class ShoppingItemHandler {
     public static void bind_goods_to_shoppingitem(ShoppingItem shoppingItem) {

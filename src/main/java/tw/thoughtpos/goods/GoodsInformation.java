@@ -1,4 +1,4 @@
-package tw.thoughtpos.tw.thoughtpos.goods;
+package tw.thoughtpos.goods;
 
 import java.util.HashMap;
 import java.util.Map;
