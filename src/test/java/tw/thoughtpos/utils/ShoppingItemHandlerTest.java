@@ -6,7 +6,6 @@ import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.ShoppingItem;
@@ -22,7 +21,6 @@ public class ShoppingItemHandlerTest {
     private static final int KEYRING_AMOUNT = 2;
 
     @Test
-    @Ignore
     public void should_bind_the_right_goods_to_shoppingitem() {
         ShoppingItem shoppingItem = new ShoppingItem(APPLE_BARCODE, APPLE_AMOUNT);
         ShoppingItemHandler.bind_goods_to_shoppingitem(shoppingItem);
@@ -33,24 +31,13 @@ public class ShoppingItemHandlerTest {
 
 
     @Test
-    @Ignore
-    public void should_bind_the_right_promotions_to_goods() {
-        ShoppingItem shoppingItem = create_shoppingitem_with_goods_binded(
-                APPLE_BARCODE, APPLE_PRICE, APPLE_AMOUNT);
-        ShoppingItemHandler.bind_promotions_to_goods(shoppingItem.getGoods());
-
-        assertThat(shoppingItem.getGoods().getPromotions().calculate(shoppingItem).getAllowance(), is(3d));
-    }
-
-    @Test
-    @Ignore
-    public void should_calculate_all_of_the_right_benefits_for_item_list() {
+    public void should_calculate_all_of_the_right_benefits_for_shoppingitem_list() {
         List<ShoppingItem> shoppingItemList = create_shoppingitem_list();
         shoppingItemList.get(0).getGoods().setPromotions(new DiscountPromotions(0.8d));
         ShoppingItemHandler.calculate_benefits_for_shoppingitem_list(shoppingItemList);
 
-        assertThat(shoppingItemList.get(0).getBenefit().getAllowance(), is(3d));
-        assertThat(shoppingItemList.get(1).getBenefit().getAllowance(), is(0d));
+        assertThat(shoppingItemList.get(0).getSubtotalPrice(), is(12d));
+        assertThat(shoppingItemList.get(1).getSubtotalPrice(), is(12d));
     }
 
     private List<ShoppingItem> create_shoppingitem_list() {
