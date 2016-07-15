@@ -1,7 +1,6 @@
 # Come on! Let's fight
 
-### Travis CI
-[https://travis-ci.org/TWatermelon/thought-pos](https://travis-ci.org/TWatermelon/thought-pos)
+[![Travis CI](https://api.travis-ci.org/TWatermelon/thought-pos.svg)](https://travis-ci.org/TWatermelon/thought-pos)
 
 ### How to Start
 
