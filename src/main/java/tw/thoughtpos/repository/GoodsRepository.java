@@ -1,4 +1,4 @@
-package tw.thoughtpos.goods;
+package tw.thoughtpos.repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.promotions.DiscountPromotions;
 
-public class GoodsInformation {
+public class GoodsRepository {
 
     private static Map<String, Goods> goodsMap;
     static {
@@ -25,7 +25,7 @@ public class GoodsInformation {
         goodsMap.put("ITEM000003", keyring);
     }
 
-    public static Goods get_goods_given_barcode(String barcode) {
+    public static Goods findGoods(String barcode) {
         return goodsMap.get(barcode);
     }
 }

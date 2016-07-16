@@ -1,4 +1,4 @@
-package tw.thoughtpos.goods;
+package tw.thoughtpos.repository;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotEquals;
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import tw.thoughtpos.domain.Goods;
 
-public class GoodsInformationTest {
+public class GoodsRepositoryTest {
 
     private static final String APPLE_BARCODE = "ITEM000001";
     private static final String APPLE_NAME = "apple";
@@ -16,7 +16,7 @@ public class GoodsInformationTest {
 
     @Test
     public void should_get_the_right_goods_given_barcode() {
-        Goods goods = GoodsInformation.get_goods_given_barcode(APPLE_BARCODE);
+        Goods goods = GoodsRepository.findGoods(APPLE_BARCODE);
         assertThat(goods.getName(), is(APPLE_NAME));
         assertThat(goods.getPrice(), is(APPLE_PRICE));
         assertNotEquals(goods.getPromotions(), null);
