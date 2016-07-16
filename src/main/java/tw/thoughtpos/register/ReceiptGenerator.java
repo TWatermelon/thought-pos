@@ -7,13 +7,10 @@ import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.utils.ShoppingItemHandler;
 
 public class ReceiptGenerator {
-    public static Receipt generateReceipt(
-            List<ShoppingItem> shoppingItems) {
+    public static Receipt generateReceipt(List<ShoppingItem> shoppingItems) {
         shoppingItems.forEach(ShoppingItemHandler::bindGoods);
         ShoppingItemHandler.calculateBenefits(shoppingItems);
-
         Receipt receipt = new Receipt(shoppingItems);
-
         return receipt;
     }
 }
