@@ -1,12 +1,14 @@
 package tw.thoughtpos.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
 import org.junit.Test;
+
 import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.promotions.DiscountPromotions;
@@ -21,42 +23,37 @@ public class ShoppingItemHandlerTest {
     private static final int KEYRING_AMOUNT = 2;
 
     @Test
-    public void should_bind_the_right_goods_to_shoppingitem() {
+    public void should_bind_the_right_goods_to_shopping_item() {
         ShoppingItem shoppingItem = new ShoppingItem(APPLE_BARCODE, APPLE_AMOUNT);
-        ShoppingItemHandler.bind_goods_to_shoppingitem(shoppingItem);
+        ShoppingItemHandler.bindGoods(shoppingItem);
 
         assertThat(shoppingItem.getGoods().getName(), is(APPLE_NAME));
         assertThat(shoppingItem.getGoods().getPrice(), is(APPLE_PRICE));
     }
 
-
     @Test
-    public void should_calculate_all_of_the_right_benefits_for_shoppingitem_list() {
-        List<ShoppingItem> shoppingItemList = create_shoppingitem_list();
+    public void should_calculate_all_of_the_right_benefits_for_shopping_item_list() {
+        List<ShoppingItem> shoppingItemList = createShoppingItemList();
         shoppingItemList.get(0).getGoods().setPromotions(new DiscountPromotions(0.8d));
-        ShoppingItemHandler.calculate_benefits_for_shoppingitem_list(shoppingItemList);
+        ShoppingItemHandler.calculateBenefits(shoppingItemList);
 
-        assertThat(shoppingItemList.get(0).getSubtotalPrice(), is(12d));
-        assertThat(shoppingItemList.get(1).getSubtotalPrice(), is(12d));
+        assertAllowance(shoppingItemList.get(0), 3d);
+        assertAllowance(shoppingItemList.get(1), 0d);
     }
 
-    private List<ShoppingItem> create_shoppingitem_list() {
-        ShoppingItem appleItem = create_shoppingitem_with_goods_binded(
-                APPLE_BARCODE, APPLE_PRICE, APPLE_AMOUNT);
-        ShoppingItem keyringItem = create_shoppingitem_with_goods_binded(
-                KEYRING_BARCODE, KEYRING_PRICE, KEYRING_AMOUNT);
-
-        List<ShoppingItem> shoppingItemList = new ArrayList<>();
-        shoppingItemList.add(appleItem);
-        shoppingItemList.add(keyringItem);
-        return shoppingItemList;
+    private void assertAllowance(ShoppingItem item, double expected) {
+        assertEquals(expected, item.getAllowance(), 0.00001);
     }
 
-    private ShoppingItem create_shoppingitem_with_goods_binded(String barcode, double price, int amount) {
+    private List<ShoppingItem> createShoppingItemList() {
+        return asList(createShoppingItem(APPLE_BARCODE, APPLE_PRICE, APPLE_AMOUNT),
+                createShoppingItem(KEYRING_BARCODE, KEYRING_PRICE, KEYRING_AMOUNT));
+    }
+
+    private ShoppingItem createShoppingItem(String barcode, double price, int amount) {
         Goods goods = new Goods(barcode);
         goods.setPrice(price);
-        ShoppingItem shoppingItem = new ShoppingItem();
-        shoppingItem.setAmount(amount);
+        ShoppingItem shoppingItem = new ShoppingItem(barcode, amount);
         shoppingItem.setGoods(goods);
         return shoppingItem;
     }

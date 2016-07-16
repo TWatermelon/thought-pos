@@ -7,21 +7,12 @@ import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.utils.ShoppingItemHandler;
 
 public class ReceiptGenerator {
-    public static Receipt generate_receipt_given_shoppingitem_list(
+    public static Receipt generateReceipt(
             List<ShoppingItem> shoppingItems) {
-        shoppingItems.forEach(ShoppingItemHandler::bind_goods_to_shoppingitem);
-        ShoppingItemHandler.calculate_benefits_for_shoppingitem_list(shoppingItems);
+        shoppingItems.forEach(ShoppingItemHandler::bindGoods);
+        ShoppingItemHandler.calculateBenefits(shoppingItems);
 
-        double totalPrice = 0d, totalAllowance = 0d;
-        for (ShoppingItem shoppingItem : shoppingItems) {
-            totalPrice += shoppingItem.getSubtotalPrice();
-            totalAllowance += shoppingItem.getAllowance();
-        }
-
-        Receipt receipt = new Receipt();
-        receipt.setShoppingItems(shoppingItems);
-        receipt.setTotalPrice(totalPrice);
-        receipt.setTotalAllowance(totalAllowance);
+        Receipt receipt = new Receipt(shoppingItems);
 
         return receipt;
     }

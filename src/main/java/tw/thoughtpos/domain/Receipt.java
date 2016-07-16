@@ -1,21 +1,12 @@
 package tw.thoughtpos.domain;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import tw.thoughtpos.register.PromotionsRecord;
 
 public class Receipt {
-    private List<ShoppingItem> shoppingItems = new LinkedList<>();
-    private Map<String, List<PromotionsRecord>> mapper = new LinkedHashMap<>();
-    private double orderSaveOfFullMinus = 0d;
-    private double totalMoneyOfFullMinusGoods = 0d;
-    private double totalPrice;
-    private double totalAllowance;
+    private List<ShoppingItem> shoppingItems = new ArrayList();
 
-    public void setShoppingItems(List<ShoppingItem> shoppingItems) {
+    public Receipt(List<ShoppingItem> shoppingItems) {
         this.shoppingItems = shoppingItems;
     }
 
@@ -23,43 +14,11 @@ public class Receipt {
         return shoppingItems;
     }
 
-    public void setMapper(Map<String, List<PromotionsRecord>> mapper) {
-        this.mapper = mapper;
-    }
-
-    public Map<String, List<PromotionsRecord>> getMapper() {
-        return mapper;
-    }
-
-    public double getOrderSaveOfFullMinus() {
-        return orderSaveOfFullMinus;
-    }
-
-    public double getTotalMoneyOfFullMinusGoods() {
-        return totalMoneyOfFullMinusGoods;
-    }
-
-    public void setOrderSaveOfFullMinus(double orderSaveOfFullMinus) {
-        this.orderSaveOfFullMinus = orderSaveOfFullMinus;
-    }
-
-    public void setTotalMoneyOfFullMinusGoods(double totalMoneyOfFullMinusGoods) {
-        this.totalMoneyOfFullMinusGoods = totalMoneyOfFullMinusGoods;
-    }
-
     public double getTotalPrice() {
-        return totalPrice;
+        return shoppingItems.stream().mapToDouble(ShoppingItem::getSubtotal).sum();
     }
 
     public double getTotalAllowance() {
-        return totalAllowance;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public void setTotalAllowance(double totalAllowacne) {
-        this.totalAllowance = totalAllowacne;
+        return shoppingItems.stream().mapToDouble(ShoppingItem::getAllowance).sum();
     }
 }
