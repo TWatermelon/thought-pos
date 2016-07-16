@@ -3,9 +3,12 @@ package tw.thoughtpos.repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.promotions.DiscountPromotions;
 
+@Repository
 public class GoodsRepository {
 
     private static Map<String, Goods> goodsMap;

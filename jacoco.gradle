@@ -10,7 +10,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/Demo**'])
+            fileTree(dir: it, exclude: ['**/Demo**', '**/PosApplication**'])
         })
     }
 }

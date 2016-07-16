@@ -1,0 +1,8 @@
+server:
+  port: 8081
+  context-path: /pos
+
+security:
+  user:
+    name: admin
+    password: admin
