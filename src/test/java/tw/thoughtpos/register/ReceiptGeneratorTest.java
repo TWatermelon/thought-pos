@@ -19,6 +19,6 @@ public class ReceiptGeneratorTest {
         Receipt receipt = ReceiptGenerator.generateReceipt(shoppingItems);
 
         assertEquals(27d, receipt.getTotalPrice(), 0.00001);
-        assertEquals(3d, receipt.getTotalAllowance(), 0.00001);
+        assertEquals(3d, receipt.getTotalSave(), 0.00001);
     }
 }

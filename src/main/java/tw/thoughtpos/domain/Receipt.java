@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt {
-    private List<ShoppingItem> shoppingItems = new ArrayList();
+    private List<ShoppingItem> shoppingItems = new ArrayList<>();
 
     public Receipt(List<ShoppingItem> shoppingItems) {
         this.shoppingItems = shoppingItems;
@@ -18,7 +18,8 @@ public class Receipt {
         return shoppingItems.stream().mapToDouble(ShoppingItem::getSubtotal).sum();
     }
 
-    public double getTotalAllowance() {
-        return shoppingItems.stream().mapToDouble(ShoppingItem::getAllowance).sum();
+    public double getTotalSave() {
+        return shoppingItems.stream().mapToDouble(shoppingItem -> shoppingItem.getAllowance()
+                + shoppingItem.getBenefit().getSaveAmount() * shoppingItem.getPrice()).sum();
     }
 }
