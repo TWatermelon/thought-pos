@@ -15,7 +15,7 @@ import tw.thoughtpos.promotions.DiscountPromotions;
 
 public class ShoppingItemHandlerTest {
     private static final String APPLE_BARCODE = "ITEM000001";
-    private static final String APPLE_NAME = "apple";
+    private static final String APPLE_NAME = "苹果";
     private static final double APPLE_PRICE = 5d;
     private static final int APPLE_AMOUNT = 3;
     private static final String KEYRING_BARCODE = "ITEM000003";
