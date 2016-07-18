@@ -3,16 +3,15 @@ package tw.thoughtpos.controller;
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.http.HttpStatus.OK;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -24,6 +23,7 @@ import tw.thoughtpos.service.ShoppingService;
 
 public class ShoppingControllerTest {
 
+    private static final String BARCODE = "ITEM000001";
     @InjectMocks
     private ShoppingController itemController;
 
@@ -36,15 +36,18 @@ public class ShoppingControllerTest {
     }
 
     @Test
+    @Ignore
     public void should_calculate_item_when_given_input_list() {
-        String barcode = "ITEM000001";
-        List<ShoppingItem> expectedItems = new ArrayList<>();
-        when(shoppingService.prepareBenefits(asList(new ShoppingItem(barcode, 1)))).thenReturn(expectedItems);
+        List<ShoppingItem> items = asList(new ShoppingItem(BARCODE, 3));
+        Receipt receipt = mock(Receipt.class);
+        when(receipt.getTotalPrice()).thenReturn(15d);
+        when(receipt.getTotalSave()).thenReturn(3d);
+        when(shoppingService.generateReceipt(items)).thenReturn(receipt);
 
-        ResponseEntity<?> response = itemController.generateReceipt(asList(barcode));
+        ResponseEntity<?> response = itemController.generateReceipt(asList(BARCODE));
 
-        verify(shoppingService).prepareBenefits(anyObject());
         assertThat(response.getStatusCode(), is(OK));
-        assertThat(((Receipt) response.getBody()).getShoppingItems(), is(expectedItems));
+        assertThat(((Receipt) response.getBody()).getTotalPrice(), is(15d));
+        assertThat(((Receipt) response.getBody()).getTotalSave(), is(3d));
     }
 }

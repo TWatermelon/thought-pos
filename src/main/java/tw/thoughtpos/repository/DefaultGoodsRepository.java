@@ -23,7 +23,6 @@ public class DefaultGoodsRepository implements GoodsRepository {
         keyring.setName("钥匙环");
         keyring.setPrice(6d);
 
-
         goodsMap.put("ITEM000001", apple);
         goodsMap.put("ITEM000003", keyring);
     }
