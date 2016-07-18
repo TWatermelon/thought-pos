@@ -2,10 +2,15 @@ package tw.thoughtpos.promotions;
 
 public class Benefit {
 
-    private double allowance;
     private String name;
-    private String details;
+    private double allowance;
     private int saveAmount;
+
+    public Benefit() {
+        this.name = "";
+        this.allowance = 0d;
+        this.saveAmount = 0;
+    }
 
     public double getAllowance() {
         return this.allowance;

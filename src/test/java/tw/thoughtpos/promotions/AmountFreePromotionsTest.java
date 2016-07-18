@@ -1,7 +1,6 @@
 package tw.thoughtpos.promotions;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -9,9 +8,7 @@ import org.junit.Test;
 import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.ShoppingItem;
 
-
-public class DiscountPromotionsTest {
-
+public class AmountFreePromotionsTest {
     private static final String BARCODE = "ITEM000001";
 
     @Test
@@ -19,11 +16,11 @@ public class DiscountPromotionsTest {
         ShoppingItem item = new ShoppingItem(BARCODE, 10);
         item.setGoods(createGoods());
 
-        DiscountPromotions promotions = new DiscountPromotions("单品打折", "0.8d");
+        Promotions promotions = new AmountFreePromotions("买二赠一", "2 1");
         Benefit benefit = promotions.prepareBenefit(item);
 
-        assertEquals(benefit.getAllowance(), 40d, 0.00001);
-        assertThat(benefit.getName(), is("单品打折"));
+        assertThat(benefit.getName(), is("买二赠一"));
+        assertThat(benefit.getSaveAmount(), is(3));
     }
 
     private Goods createGoods() {
