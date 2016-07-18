@@ -2,7 +2,7 @@
 
 [![travis-ci](https://api.travis-ci.org/TWatermelon/thought-pos.svg)](https://travis-ci.org/TWatermelon/thought-pos)
 
-### How to Start
+### BUILD
 
 #### Generate IntelliJ IDEA project
 `./gradlew cleanIdea idea`
@@ -13,6 +13,9 @@ Open the `thought-pos.ipr` using IntelliJ
 `./gradlew clean build`
 
 This will run checkstyle, unit test and code coverage check
+
+### 成果
+
 
 ### TODO
 - 为GoodsRepository实现类增加商品信息的读入方式（配置文件/数据库）
