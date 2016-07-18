@@ -1,6 +1,5 @@
-# Come on! Let's fight
+# Thought-POS (for the final battle)
 
-### travis-ci links
 [![travis-ci](https://api.travis-ci.org/TWatermelon/thought-pos.svg)](https://travis-ci.org/TWatermelon/thought-pos)
 
 ### How to Start
