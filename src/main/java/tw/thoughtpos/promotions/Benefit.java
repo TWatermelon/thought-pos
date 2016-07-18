@@ -19,6 +19,10 @@ public class Benefit {
         this.name = name;
     }
 
+    public String getDetails() {
+        return details;
+    }
+
     public void setDetails(String details) {
         this.details = details;
     }

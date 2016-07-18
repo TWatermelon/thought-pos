@@ -23,7 +23,7 @@ public class ShoppingController {
 
     @RequestMapping(method = POST, value = "/shoppingItems")
     public ResponseEntity<?> generateReceipt(@RequestBody List<String> inputs) {
-        List<ShoppingItem> shoppingItems = shoppingService.calculateItems(parseToItem(inputs));
+        List<ShoppingItem> shoppingItems = shoppingService.prepareBenefits(parseToItem(inputs));
         return new ResponseEntity<>(new Receipt(shoppingItems), OK);
     }
 }

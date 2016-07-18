@@ -39,11 +39,11 @@ public class ShoppingControllerTest {
     public void should_calculate_item_when_given_input_list() {
         String barcode = "ITEM000001";
         List<ShoppingItem> expectedItems = new ArrayList<>();
-        when(shoppingService.calculateItems(asList(new ShoppingItem(barcode, 1)))).thenReturn(expectedItems);
+        when(shoppingService.prepareBenefits(asList(new ShoppingItem(barcode, 1)))).thenReturn(expectedItems);
 
         ResponseEntity<?> response = itemController.generateReceipt(asList(barcode));
 
-        verify(shoppingService).calculateItems(anyObject());
+        verify(shoppingService).prepareBenefits(anyObject());
         assertThat(response.getStatusCode(), is(OK));
         assertThat(((Receipt) response.getBody()).getShoppingItems(), is(expectedItems));
     }
