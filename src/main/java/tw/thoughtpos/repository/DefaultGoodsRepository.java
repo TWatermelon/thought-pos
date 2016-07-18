@@ -26,14 +26,14 @@ public class DefaultGoodsRepository implements GoodsRepository {
         keyring.setUnit("个");
         keyring.setPrice(6d);
 
-        Goods cococola = new Goods("ITEM000002");
-        cococola.setName("可口可乐");
-        cococola.setPrice(2.5d);
-        cococola.setUnit("瓶");
-        cococola.setPromotions(new AmountFreePromotions("买二赠一商品", "2 1"));
+        Goods cola = new Goods("ITEM000002");
+        cola.setName("可口可乐");
+        cola.setPrice(2.5d);
+        cola.setUnit("瓶");
+        cola.setPromotions(new AmountFreePromotions("买二赠一商品", "2 1"));
 
         goodsMap.put("ITEM000001", apple);
-        goodsMap.put("ITEM000002", cococola);
+        goodsMap.put("ITEM000002", cola);
         goodsMap.put("ITEM000003", keyring);
     }
 
