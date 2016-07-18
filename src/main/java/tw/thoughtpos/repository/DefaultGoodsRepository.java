@@ -30,7 +30,7 @@ public class DefaultGoodsRepository implements GoodsRepository {
         cococola.setName("可口可乐");
         cococola.setPrice(2.5d);
         cococola.setUnit("瓶");
-        keyring.setPromotions(new AmountFreePromotions("买二赠一", "2 1"));
+        cococola.setPromotions(new AmountFreePromotions("买二赠一商品", "2 1"));
 
         goodsMap.put("ITEM000001", apple);
         goodsMap.put("ITEM000002", cococola);

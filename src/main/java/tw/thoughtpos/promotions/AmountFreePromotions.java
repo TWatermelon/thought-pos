@@ -16,8 +16,9 @@ public class AmountFreePromotions implements Promotions {
     @Override
     public Benefit prepareBenefit(ShoppingItem item) {
         Benefit benefit = new Benefit();
-        benefit.setName(this.name);
-        benefit.setSaveAmount(item.getAmount() / (buyAmount + freeAmount) * freeAmount);
+        int saveAmount = item.getAmount() / (buyAmount + freeAmount) * freeAmount;
+        benefit.setName(saveAmount > 0 ? this.name : "");
+        benefit.setSaveAmount(saveAmount);
         return benefit;
     }
 }
