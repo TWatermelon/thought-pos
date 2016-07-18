@@ -50,7 +50,7 @@ public final class CashRegister {
 
     private String getPromotionsInfo(String name, List<ShoppingItem> shoppingItems) {
         StringBuilder builder = new StringBuilder();
-        if (!name.equals("")) {
+        if (name.equals("买二赠一商品")) {
             builder.append(SEPARATOR_LINE)
                     .append(name + "：").append(NEW_LINE_CHAR);
             shoppingItems.forEach(shoppingItem -> {

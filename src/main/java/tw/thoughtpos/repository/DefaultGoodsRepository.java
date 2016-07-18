@@ -17,10 +17,12 @@ public class DefaultGoodsRepository implements GoodsRepository {
         Goods apple = new Goods("ITEM000001");
         apple.setName("苹果");
         apple.setPrice(5d);
+        apple.setUnit("斤");
         apple.setPromotions(new DiscountPromotions("单品打折", "0.8d"));
 
         Goods keyring = new Goods("ITEM000003");
         keyring.setName("钥匙环");
+        keyring.setUnit("个");
         keyring.setPrice(6d);
 
         goodsMap.put("ITEM000001", apple);
