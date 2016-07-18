@@ -9,6 +9,7 @@ import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.repository.GoodsRepository;
 
+
 @Service
 public class DefaultShoppingService implements ShoppingService {
     @Autowired
@@ -16,7 +17,7 @@ public class DefaultShoppingService implements ShoppingService {
 
     public List<ShoppingItem> bindGoods(List<ShoppingItem> shoppingItems) {
         shoppingItems.forEach(this::bindGoods);
-        return  shoppingItems;
+        return shoppingItems;
     }
 
     private void bindGoods(ShoppingItem shoppingItem) {
@@ -26,8 +27,7 @@ public class DefaultShoppingService implements ShoppingService {
     public List<ShoppingItem> prepareBenefits(List<ShoppingItem> shoppingItems) {
         for (ShoppingItem shoppingItem : shoppingItems) {
             if (shoppingItem.getGoods().getPromotions() != null) {
-                shoppingItem.setBenefit(
-                        shoppingItem.getGoods().getPromotions().calculate(shoppingItem));
+                shoppingItem.setBenefit(shoppingItem.getGoods().getPromotions().prepareBenefit(shoppingItem));
             }
         }
         return shoppingItems;

@@ -47,7 +47,7 @@ public class ShoppingServiceTest {
     public void setUp() {
         initMocks(this);
         when(goodsRepository.findGoods(APPLE_BARCODE))
-                .thenReturn(createGoods(APPLE_BARCODE, APPLE_NAME, APPLE_PRICE, null));
+                .thenReturn(createGoods(APPLE_BARCODE, APPLE_NAME, APPLE_PRICE));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class ShoppingServiceTest {
         List<ShoppingItem> shoppingItemList = createShoppingItemList();
 
         Promotions promotions = mock(Promotions.class);
-        when(promotions.calculate(shoppingItemList.get(0)))
+        when(promotions.prepareBenefit(shoppingItemList.get(0)))
                 .thenReturn(expectedBenefit);
 
         shoppingItemList.get(0).getGoods().setPromotions(promotions);
@@ -88,7 +88,6 @@ public class ShoppingServiceTest {
         Benefit benefit = new Benefit();
         benefit.setAllowance(allowance);
         benefit.setName(name);
-        benefit.setDetails(details);
         return benefit;
     }
 
@@ -96,7 +95,6 @@ public class ShoppingServiceTest {
     private void assertBenefit(Benefit benefit, Benefit expected) {
         assertEquals(expected.getAllowance(), benefit.getAllowance(), 0.00001);
         assertThat(benefit.getName(), is(expected.getName()));
-        assertThat(benefit.getDetails(), is(expected.getDetails()));
     }
 
     private List<ShoppingItem> createShoppingItemList() {
@@ -104,17 +102,16 @@ public class ShoppingServiceTest {
     }
 
     private ShoppingItem createShoppingItem(String barcode, String name, double price, int amount) {
-        Goods goods = createGoods(barcode, name, price, null);
+        Goods goods = createGoods(barcode, name, price);
         ShoppingItem shoppingItem = new ShoppingItem(barcode, amount);
         shoppingItem.setGoods(goods);
         return shoppingItem;
     }
 
-    private Goods createGoods(String barcode, String name, double price, Promotions promotions) {
+    private Goods createGoods(String barcode, String name, double price) {
         Goods goods = new Goods(barcode);
         goods.setName(name);
         goods.setPrice(price);
-        goods.setPromotions(promotions);
         return goods;
     }
 }

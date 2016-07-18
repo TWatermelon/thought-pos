@@ -138,7 +138,6 @@ public class ReceiptPrinterTest {
         Benefit benefit = new Benefit();
         benefit.setAllowance(allowance);
         benefit.setName(name);
-        benefit.setDetails(details);
         benefit.setSaveAmount(saveAmount);
         return benefit;
     }

@@ -15,6 +15,7 @@ public class GoodsRepositoryTest {
     private static final String APPLE_BARCODE = "ITEM000001";
     private static final String APPLE_NAME = "苹果";
     private static final double APPLE_PRICE = 5d;
+    private static final String APPLE_PROMOTIONS = "DiscountPromotions";
 
     private GoodsRepository goodsRepository;
 
