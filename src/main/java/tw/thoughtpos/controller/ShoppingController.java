@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.service.ShoppingService;
 
 @RestController
@@ -21,6 +22,7 @@ public class ShoppingController {
 
     @RequestMapping(method = POST, value = "/shoppingItems")
     public ResponseEntity<?> generateReceipt(@RequestBody List<String> inputs) {
-        return new ResponseEntity<>(shoppingService.generateReceipt(parseToItem(inputs)), OK);
+        return new ResponseEntity<>(new Receipt(shoppingService
+                .prepareBenefits(shoppingService.bindGoods(parseToItem(inputs)))), OK);
     }
 }
