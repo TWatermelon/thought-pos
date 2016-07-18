@@ -42,4 +42,3 @@ public class DefaultGoodsRepository implements GoodsRepository {
     }
 }
 
-
