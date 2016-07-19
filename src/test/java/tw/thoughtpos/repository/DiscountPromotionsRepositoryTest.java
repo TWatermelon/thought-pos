@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import tw.thoughtpos.promotions.DiscountPromotions;
 
-public class DiscountPromotionRepositoryTest {
+public class DiscountPromotionsRepositoryTest {
 
     private static final String BARCODE = "ITEM000001";
     private static final String NAME = "打折商品";

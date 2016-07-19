@@ -11,6 +11,11 @@ import tw.thoughtpos.promotions.DiscountPromotions;
 public class DiscountPromotionRepository {
     private Map<String, DiscountPromotions> discountPromotionsMap = new HashMap<>();
 
+    public DiscountPromotionRepository() {
+        discountPromotionsMap.put("ITEM000001", new DiscountPromotions("打折商品", "0.95"));
+        discountPromotionsMap.put("ITEM000003", new DiscountPromotions("打折商品", "0.95"));
+    }
+
     public DiscountPromotions findOne(String barcode) {
         return discountPromotionsMap.get(barcode);
     }

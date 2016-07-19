@@ -21,4 +21,16 @@ public class AmountFreePromotions implements Promotions {
         benefit.setSaveAmount(saveAmount);
         return benefit;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBuyAmount() {
+        return buyAmount;
+    }
+
+    public int getFreeAmount() {
+        return freeAmount;
+    }
 }

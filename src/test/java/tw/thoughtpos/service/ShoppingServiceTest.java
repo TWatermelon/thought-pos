@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
@@ -20,6 +19,7 @@ import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.promotions.Benefit;
+import tw.thoughtpos.promotions.DiscountPromotions;
 import tw.thoughtpos.promotions.Promotions;
 import tw.thoughtpos.repository.GoodsRepository;
 
@@ -28,12 +28,8 @@ public class ShoppingServiceTest {
     private static final String APPLE_NAME = "苹果";
     private static final double APPLE_PRICE = 5d;
     private static final int APPLE_AMOUNT = 3;
-    private static final String KEYRING_BARCODE = "ITEM000003";
-    private static final String KEYRING_NAME = "钥匙环";
-    private static final double KEYRING_PRICE = 6d;
-    private static final int KEYRING_AMOUNT = 2;
-    private static final double APPLE_ALLOWANCE = 3d;
-    private static final String DISCOUNT_NAME = "单品打折";
+    private static final double APPLE_ALLOWANCE = 0.75d;
+    private static final String DISCOUNT_NAME = "打折商品";
     private static final String DISCOUNT_DETAILS = "折扣：八折";
 
 
@@ -43,11 +39,16 @@ public class ShoppingServiceTest {
     @Mock
     private GoodsRepository goodsRepository;
 
+    @Mock
+    private DefaultPromotionsService promotionsService;
+
     @Before
     public void setUp() {
         initMocks(this);
         when(goodsRepository.findGoods(APPLE_BARCODE))
                 .thenReturn(createGoods(APPLE_BARCODE, APPLE_NAME, APPLE_PRICE));
+        when(promotionsService.findPromotions(APPLE_BARCODE))
+                .thenReturn(new DiscountPromotions("打折商品", "0.95"));
     }
 
     @Test
@@ -66,8 +67,6 @@ public class ShoppingServiceTest {
         Promotions promotions = mock(Promotions.class);
         when(promotions.prepareBenefit(shoppingItemList.get(0)))
                 .thenReturn(expectedBenefit);
-
-        shoppingItemList.get(0).getGoods().setPromotions(promotions);
         shoppingService.prepareBenefits(shoppingItemList);
 
         assertBenefit(shoppingItemList.get(0).getBenefit(), expectedBenefit);
@@ -81,7 +80,7 @@ public class ShoppingServiceTest {
         Receipt receipt = shoppingService.generateReceipt(shoppingItems);
 
         assertEquals(15d, receipt.getTotalPrice(), 0.00001);
-        assertEquals(3d, receipt.getTotalSave(), 0.00001);
+        assertEquals(0.75d, receipt.getTotalSave(), 0.00001);
     }
 
     private Benefit createBenefit(double allowance, String name, String details) {
@@ -90,7 +89,6 @@ public class ShoppingServiceTest {
         benefit.setName(name);
         return benefit;
     }
-
 
     private void assertBenefit(Benefit benefit, Benefit expected) {
         assertEquals(expected.getAllowance(), benefit.getAllowance(), 0.00001);

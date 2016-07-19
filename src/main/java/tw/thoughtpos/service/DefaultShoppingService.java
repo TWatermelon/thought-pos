@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
+import tw.thoughtpos.promotions.Promotions;
 import tw.thoughtpos.repository.GoodsRepository;
 
 
@@ -14,6 +15,9 @@ import tw.thoughtpos.repository.GoodsRepository;
 public class DefaultShoppingService implements ShoppingService {
     @Autowired
     private GoodsRepository goodsRepository;
+
+    @Autowired
+    private DefaultPromotionsService promotionsService;
 
     public List<ShoppingItem> bindGoods(List<ShoppingItem> shoppingItems) {
         shoppingItems.forEach(this::bindGoods);
@@ -26,8 +30,10 @@ public class DefaultShoppingService implements ShoppingService {
 
     public List<ShoppingItem> prepareBenefits(List<ShoppingItem> shoppingItems) {
         for (ShoppingItem shoppingItem : shoppingItems) {
-            if (shoppingItem.getGoods().getPromotions() != null) {
-                shoppingItem.setBenefit(shoppingItem.getGoods().getPromotions().prepareBenefit(shoppingItem));
+           Promotions discountPromotions =
+                    promotionsService.findPromotions(shoppingItem.getBarcode());
+            if (discountPromotions != null) {
+                shoppingItem.setBenefit(discountPromotions.prepareBenefit(shoppingItem));
             }
         }
         return shoppingItems;
