@@ -28,7 +28,7 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_without_promotions_goods() throws Exception {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, "", ""));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, ""));
         shoppingItems.add(shoppingItem);
         receipt = new Receipt(shoppingItems);
         ReceiptPrinter.getInstance().print(receipt, printer);
@@ -39,12 +39,15 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_with_discount_promotions() {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, "", ""));
-        ShoppingItem shoppingItem = generateShoppingItem("ITEM00003", 5,
-                generateGoods("ITEM00003", 50.00d, "茶壶", "个"), generateBenefit(0d, 0, "", ""));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, ""));
+        ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00006", 5,
+                generateGoods("ITEM00006", 8.00d, "芒果", "斤"), generateBenefit(2.00d, 0, ""));
+        ShoppingItem shoppingItem2 = generateShoppingItem("ITEM00003", 5,
+                generateGoods("ITEM00003", 50.00d, "茶壶", "个"), generateBenefit(0d, 0, ""));
 
-        shoppingItems.add(shoppingItem);
+        shoppingItems.add(shoppingItem2);
         shoppingItems.add(shoppingItem0);
+        shoppingItems.add(shoppingItem1);
         receipt = new Receipt(shoppingItems);
         ReceiptPrinter.getInstance().print(receipt, printer);
         verify(printer).print(getExpectedContentWithDiscountPromotions());
@@ -54,9 +57,9 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_with_buy_two_present_one_promotions() {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, "", ""));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, ""));
         ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00003", 3,
-                generateGoods("ITEM00003", 5.00d, "可乐", "瓶"), generateBenefit(0d, 1, "买二赠一商品", ""));
+                generateGoods("ITEM00003", 5.00d, "可乐", "瓶"), generateBenefit(0d, 1, "买二赠一商品"));
 
         shoppingItems.add(shoppingItem0);
         shoppingItems.add(shoppingItem1);
@@ -69,10 +72,10 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_with_multiple_promotions_goods() throws Exception {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, "", ""));
+                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, ""));
         shoppingItems.add(shoppingItem0);
         ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00002", 3,
-                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), generateBenefit(0d, 1, "买二赠一商品", ""));
+                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), generateBenefit(0d, 1, "买二赠一商品"));
         shoppingItems.add(shoppingItem1);
         receipt = new Receipt(shoppingItems);
         ReceiptPrinter.getInstance().print(receipt, printer);
@@ -84,9 +87,10 @@ public class ReceiptPrinterTest {
         builder.append("***<没钱赚商店>购物清单***").append("\n")
                 .append("名称：茶壶,数量：5个,单价：50.00（元）,小计:250.00（元）").append("\n")
                 .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:19.00（元）,节省1.00（元）").append("\n")
+                .append("名称：芒果,数量：5斤,单价：8.00（元）,小计:38.00（元）,节省2.00（元）").append("\n")
                 .append("----------").append("\n")
-                .append("总计：269.00（元）").append("\n")
-                .append("节省：1.00（元）").append("\n");
+                .append("总计：307.00（元）").append("\n")
+                .append("节省：3.00（元）").append("\n");
         return builder.toString();
     }
 
@@ -134,7 +138,7 @@ public class ReceiptPrinterTest {
         return shoppingItem;
     }
 
-    private Benefit generateBenefit(double allowance, int saveAmount, String name, String details) {
+    private Benefit generateBenefit(double allowance, int saveAmount, String name) {
         Benefit benefit = new Benefit();
         benefit.setAllowance(allowance);
         benefit.setName(name);

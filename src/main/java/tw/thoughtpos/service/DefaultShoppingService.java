@@ -30,10 +30,10 @@ public class DefaultShoppingService implements ShoppingService {
 
     public List<ShoppingItem> prepareBenefits(List<ShoppingItem> shoppingItems) {
         for (ShoppingItem shoppingItem : shoppingItems) {
-           Promotions discountPromotions =
+           Promotions promotions =
                     promotionsService.findPromotions(shoppingItem.getBarcode());
-            if (discountPromotions != null) {
-                shoppingItem.setBenefit(discountPromotions.prepareBenefit(shoppingItem));
+            if (promotions != null) {
+                shoppingItem.setBenefit(promotions.prepareBenefit(shoppingItem));
             }
         }
         return shoppingItems;

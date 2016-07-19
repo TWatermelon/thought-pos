@@ -21,11 +21,11 @@ public class DefaultGoodsRepository implements GoodsRepository {
     }
 
     private Goods generateGoods(String item000001, String name, double price, String unit) {
-        Goods apple = new Goods(item000001);
-        apple.setName(name);
-        apple.setPrice(price);
-        apple.setUnit(unit);
-        return apple;
+        Goods goods = new Goods(item000001);
+        goods.setName(name);
+        goods.setPrice(price);
+        goods.setUnit(unit);
+        return goods;
     }
 
     public Goods findGoods(String barcode) {
