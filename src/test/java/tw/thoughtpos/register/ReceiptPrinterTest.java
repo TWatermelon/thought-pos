@@ -26,7 +26,7 @@ public class ReceiptPrinterTest {
 
     @Test
     public void should_print_receipt_without_promotions_goods() throws Exception {
-        PosPrinter printer = mock(PosPrinter.class);
+        IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00001", 4,
                 generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, "", ""));
         shoppingItems.add(shoppingItem);
@@ -37,7 +37,7 @@ public class ReceiptPrinterTest {
 
     @Test
     public void should_print_receipt_with_discount_promotions() {
-        PosPrinter printer = mock(PosPrinter.class);
+        IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
                 generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, "", ""));
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00003", 5,
@@ -52,7 +52,7 @@ public class ReceiptPrinterTest {
 
     @Test
     public void should_print_receipt_with_buy_two_present_one_promotions() {
-        PosPrinter printer = mock(PosPrinter.class);
+        IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
                 generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, "", ""));
         ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00003", 3,
@@ -67,7 +67,7 @@ public class ReceiptPrinterTest {
 
     @Test
     public void should_print_receipt_with_multiple_promotions_goods() throws Exception {
-        PosPrinter printer = mock(PosPrinter.class);
+        IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
                 generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, "", ""));
         shoppingItems.add(shoppingItem0);
