@@ -19,7 +19,7 @@ public class Receipt {
     }
 
     public double getTotalSave() {
-        return shoppingItems.stream().mapToDouble(shoppingItem -> shoppingItem.getAllowance()
-                + shoppingItem.getBenefit().getSaveAmount() * shoppingItem.getPrice()).sum();
+        return shoppingItems.stream().mapToDouble(shoppingItem -> shoppingItem.getBenefit().getAllowance()
+                + shoppingItem.getBenefit().getSaveAmount() * shoppingItem.getGoods().getPrice()).sum();
     }
 }

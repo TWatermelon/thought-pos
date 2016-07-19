@@ -13,24 +13,19 @@ public class DefaultGoodsRepository implements GoodsRepository {
 
     public DefaultGoodsRepository() {
         goodsMap = new HashMap<>();
-        Goods apple = new Goods("ITEM000001");
-        apple.setName("苹果");
-        apple.setPrice(5d);
-        apple.setUnit("斤");
+        goodsMap.put("ITEM000001", generateGoods("ITEM000001", "苹果", 5d, "斤"));
+        goodsMap.put("ITEM000002", generateGoods("ITEM000002", "可口可乐", 2.5d, "瓶"));
+        goodsMap.put("ITEM000003", generateGoods("ITEM000003", "钥匙环", 6d, "个"));
+        goodsMap.put("ITEM000004", generateGoods("ITEM000004", "猪肉", 13d, "斤"));
+        goodsMap.put("ITEM000005", generateGoods("ITEM000005", "篮球", 199d, "个"));
+    }
 
-        Goods keyring = new Goods("ITEM000003");
-        keyring.setName("钥匙环");
-        keyring.setUnit("个");
-        keyring.setPrice(6d);
-
-        Goods cola = new Goods("ITEM000002");
-        cola.setName("可口可乐");
-        cola.setPrice(2.5d);
-        cola.setUnit("瓶");
-
-        goodsMap.put("ITEM000001", apple);
-        goodsMap.put("ITEM000002", cola);
-        goodsMap.put("ITEM000003", keyring);
+    private Goods generateGoods(String item000001, String name, double price, String unit) {
+        Goods goods = new Goods(item000001);
+        goods.setName(name);
+        goods.setPrice(price);
+        goods.setUnit(unit);
+        return goods;
     }
 
     public Goods findGoods(String barcode) {
