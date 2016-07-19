@@ -25,7 +25,7 @@ public class DefaultPromotionsService implements PromotionsService {
         if (discountPromotions != null) {
             return discountPromotions;
         }
-            return amountFreePromotions != null && discountPromotions == null ? amountFreePromotions
-                    : null;
+        return amountFreePromotions != null && discountPromotions == null ? amountFreePromotions
+                : null;
     }
 }
