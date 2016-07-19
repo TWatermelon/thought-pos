@@ -2,6 +2,7 @@ package tw.thoughtpos.register;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static tw.thoughtpos.utils.ConstantUtil.NEW_LINE_CHAR;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,50 +85,50 @@ public class ReceiptPrinterTest {
 
     private String getExpectedContentWithDiscountPromotions() {
         StringBuilder builder = new StringBuilder();
-        builder.append("***<没钱赚商店>购物清单***").append("\n")
-                .append("名称：茶壶,数量：5个,单价：50.00（元）,小计:250.00（元）").append("\n")
-                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:19.00（元）,节省1.00（元）").append("\n")
-                .append("名称：芒果,数量：5斤,单价：8.00（元）,小计:38.00（元）,节省2.00（元）").append("\n")
-                .append("----------").append("\n")
-                .append("总计：307.00（元）").append("\n")
-                .append("节省：3.00（元）").append("\n");
+        builder.append("***<没钱赚商店>购物清单***").append(NEW_LINE_CHAR)
+                .append("名称：茶壶,数量：5个,单价：50.00（元）,小计:250.00（元）").append(NEW_LINE_CHAR)
+                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:19.00（元）,节省1.00（元）").append(NEW_LINE_CHAR)
+                .append("名称：芒果,数量：5斤,单价：8.00（元）,小计:38.00（元）,节省2.00（元）").append(NEW_LINE_CHAR)
+                .append("----------").append(NEW_LINE_CHAR)
+                .append("总计：307.00（元）").append(NEW_LINE_CHAR)
+                .append("节省：3.00（元）").append(NEW_LINE_CHAR);
         return builder.toString();
     }
 
     private String getExpectedContentWithBuyTwoPresentOnePromotions() {
         StringBuilder builder = new StringBuilder();
-        builder.append("***<没钱赚商店>购物清单***").append("\n")
-                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:20.00（元）").append("\n")
-                .append("名称：可乐,数量：3瓶,单价：5.00（元）,小计:10.00（元）").append("\n")
-                .append("----------").append("\n")
-                .append("买二赠一商品：").append("\n")
-                .append("名称：可乐,数量：1瓶").append("\n")
-                .append("----------").append("\n")
-                .append("总计：30.00（元）").append("\n")
-                .append("节省：5.00（元）").append("\n");
+        builder.append("***<没钱赚商店>购物清单***").append(NEW_LINE_CHAR)
+                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:20.00（元）").append(NEW_LINE_CHAR)
+                .append("名称：可乐,数量：3瓶,单价：5.00（元）,小计:10.00（元）").append(NEW_LINE_CHAR)
+                .append("----------").append(NEW_LINE_CHAR)
+                .append("买二赠一商品：").append(NEW_LINE_CHAR)
+                .append("名称：可乐,数量：1瓶").append(NEW_LINE_CHAR)
+                .append("----------").append(NEW_LINE_CHAR)
+                .append("总计：30.00（元）").append(NEW_LINE_CHAR)
+                .append("节省：5.00（元）").append(NEW_LINE_CHAR);
         return builder.toString();
     }
 
     private String getExpectedContentWithoutPromotions() {
         StringBuilder builder = new StringBuilder();
-        builder.append("***<没钱赚商店>购物清单***").append("\n")
-                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:20.00（元）").append("\n")
-                .append("----------").append("\n")
-                .append("总计：20.00（元）").append("\n");
+        builder.append("***<没钱赚商店>购物清单***").append(NEW_LINE_CHAR)
+                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:20.00（元）").append(NEW_LINE_CHAR)
+                .append("----------").append(NEW_LINE_CHAR)
+                .append("总计：20.00（元）").append(NEW_LINE_CHAR);
         return builder.toString();
     }
 
     private String getExpectedContentWithMultiplePromotions() {
         StringBuilder builder = new StringBuilder();
-        builder.append("***<没钱赚商店>购物清单***").append("\n")
-                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:19.00（元）,节省1.00（元）").append("\n")
-                .append("名称：可乐,数量：3瓶,单价：5.00（元）,小计:10.00（元）").append("\n")
-                .append("----------").append("\n")
-                .append("买二赠一商品：").append("\n")
-                .append("名称：可乐,数量：1瓶").append("\n")
-                .append("----------").append("\n")
-                .append("总计：29.00（元）").append("\n")
-                .append("节省：6.00（元）").append("\n");
+        builder.append("***<没钱赚商店>购物清单***").append(NEW_LINE_CHAR)
+                .append("名称：苹果,数量：4斤,单价：5.00（元）,小计:19.00（元）,节省1.00（元）").append(NEW_LINE_CHAR)
+                .append("名称：可乐,数量：3瓶,单价：5.00（元）,小计:10.00（元）").append(NEW_LINE_CHAR)
+                .append("----------").append(NEW_LINE_CHAR)
+                .append("买二赠一商品：").append(NEW_LINE_CHAR)
+                .append("名称：可乐,数量：1瓶").append(NEW_LINE_CHAR)
+                .append("----------").append(NEW_LINE_CHAR)
+                .append("总计：29.00（元）").append(NEW_LINE_CHAR)
+                .append("节省：6.00（元）").append(NEW_LINE_CHAR);
         return builder.toString();
     }
 
