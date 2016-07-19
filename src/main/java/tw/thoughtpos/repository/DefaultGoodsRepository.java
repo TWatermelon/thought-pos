@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import tw.thoughtpos.domain.Goods;
-import tw.thoughtpos.promotions.AmountFreePromotions;
-import tw.thoughtpos.promotions.DiscountPromotions;
 
 @Repository
 public class DefaultGoodsRepository implements GoodsRepository {
@@ -19,7 +17,6 @@ public class DefaultGoodsRepository implements GoodsRepository {
         apple.setName("苹果");
         apple.setPrice(5d);
         apple.setUnit("斤");
-        apple.setPromotions(new DiscountPromotions("单品打折", "0.8d"));
 
         Goods keyring = new Goods("ITEM000003");
         keyring.setName("钥匙环");
@@ -30,7 +27,6 @@ public class DefaultGoodsRepository implements GoodsRepository {
         cola.setName("可口可乐");
         cola.setPrice(2.5d);
         cola.setUnit("瓶");
-        cola.setPromotions(new AmountFreePromotions("买二赠一商品", "2 1"));
 
         goodsMap.put("ITEM000001", apple);
         goodsMap.put("ITEM000002", cola);

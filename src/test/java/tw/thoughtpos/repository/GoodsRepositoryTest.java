@@ -1,8 +1,6 @@
 package tw.thoughtpos.repository;
 
 import static org.hamcrest.core.Is.is;
-
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -28,6 +26,5 @@ public class GoodsRepositoryTest {
         Goods goods = goodsRepository.findGoods(APPLE_BARCODE);
         assertThat(goods.getName(), is(APPLE_NAME));
         assertThat(goods.getPrice(), is(APPLE_PRICE));
-        assertNotEquals(goods.getPromotions(), null);
     }
 }
