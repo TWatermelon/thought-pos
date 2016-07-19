@@ -98,7 +98,7 @@ public final class CashRegister {
 
     private List<ShoppingItem> getShoppingItemsWithPromotions() {
         return receipt.getShoppingItems().stream()
-                .filter(shoppingItem -> shoppingItem.getBenefit().getName() != null)
+                .filter(shoppingItem -> !shoppingItem.getBenefit().getName().equals(""))
                 .collect(toList());
     }
 
