@@ -1,5 +1,7 @@
 package tw.thoughtpos.promotions;
 
+import tw.thoughtpos.utils.FormatUtil;
+
 public class Benefit {
 
     private String name;
@@ -17,7 +19,7 @@ public class Benefit {
     }
 
     public void setAllowance(double allowance) {
-        this.allowance = allowance;
+        this.allowance = Double.parseDouble(FormatUtil.format(allowance));
     }
 
     public void setName(String name) {

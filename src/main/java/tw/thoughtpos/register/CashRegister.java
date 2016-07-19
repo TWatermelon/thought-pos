@@ -77,6 +77,60 @@ public final class CashRegister {
                 : builder.toString();
     }
 
+
+    private String getAmountInfo(ShoppingItem shoppingItem) {
+        return new StringBuilder().append("数量：").append(shoppingItem.getAmount()).toString();
+    }
+
+    private String getUnitInfo(ShoppingItem shoppingItem) {
+        return new StringBuilder()
+                .append(shoppingItem.getGoods().getUnit())
+                .append(COMMA).toString();
+    }
+
+    private String getPriceInfo(ShoppingItem shoppingItem) {
+        return new StringBuilder().append("单价：")
+                .append(format(shoppingItem.getGoods().getPrice()))
+                .append(MONEY_UNIT)
+                .append(COMMA).toString();
+    }
+
+    private String getNameInfo(ShoppingItem shoppingItem) {
+        return new StringBuilder().append("名称：")
+                .append(shoppingItem.getGoods().getName())
+                .append(COMMA).toString();
+    }
+
+    private String getAllowanceInfo(ShoppingItem shoppingItem) {
+        StringBuilder builder = new StringBuilder();
+        double allowance = getAllowance(shoppingItem);
+        return allowance > 0 ? builder.append(COMMA + "节省")
+                .append(format(allowance)).append(MONEY_UNIT).toString() : builder.toString();
+    }
+
+    private double getAllowance(ShoppingItem shoppingItem) {
+        return shoppingItem.getBenefit().getAllowance();
+    }
+
+    private String getSubtotalInfo(ShoppingItem shoppingItem) {
+        return new StringBuilder().append("小计:")
+                .append(format(getSubtotalExcludeSave(shoppingItem)))
+                .append(MONEY_UNIT).toString();
+    }
+
+    private double getSubtotalExcludeSave(ShoppingItem shoppingItem) {
+        return shoppingItem.getSubtotal() - getAllowance(shoppingItem) -
+                shoppingItem.getBenefit().getSaveAmount() * shoppingItem.getPrice();
+    }
+
+    private String generateShoppingItemInfo(ShoppingItem shoppingItem) {
+        return new StringBuilder().append(getNameInfo(shoppingItem)).append(getAmountInfo(shoppingItem))
+                .append(getUnitInfo(shoppingItem)).append(getPriceInfo(shoppingItem))
+                .append(getSubtotalInfo(shoppingItem))
+                .append(getAllowanceInfo(shoppingItem))
+                .append(NEW_LINE_CHAR).toString();
+    }
+
     private  Map<String, List<ShoppingItem>> mergeShoppingItemsWithPromotions(
             List<ShoppingItem> shoppingItems) {
         Map<String, List<ShoppingItem>> result = new HashMap<>();
@@ -103,7 +157,7 @@ public final class CashRegister {
     }
 
     private String getItemDetail(ShoppingItem shoppingItem) {
-        return shoppingItem.toString();
+        return generateShoppingItemInfo(shoppingItem);
     }
 
     public void setReceipt(Receipt receipt) {
