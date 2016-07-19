@@ -21,4 +21,8 @@ public class DiscountPromotions implements Promotions {
     public String getName() {
         return name;
     }
+
+    public double getRate() {
+        return rate;
+    }
 }
