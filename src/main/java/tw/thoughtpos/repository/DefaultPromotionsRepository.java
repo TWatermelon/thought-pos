@@ -21,6 +21,8 @@ public class DefaultPromotionsRepository implements PromotionsRepository {
         promotionsMap.put("P0002", new AmountFreePromotions("买二赠一", "2 1"));
 
         barcodePromotionsCodeMap = new HashMap<>();
+        barcodePromotionsCodeMap.put("ITEM000001", "P0001");
+        barcodePromotionsCodeMap.put("ITEM000002", "P0002");
     }
 
     @Override
