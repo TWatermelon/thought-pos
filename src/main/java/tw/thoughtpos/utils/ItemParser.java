@@ -15,24 +15,28 @@ public class ItemParser {
     private static final int DEFAULT_VALUE = 1;
     private static final int SPLIT_LENGTH = 2;
 
-    public static List<ShoppingItem> parseToItem(List<String> lines) {
-        List<ShoppingItem> shoppingItems = lines.stream().map(ItemParser::splitOutItem).collect(toList());
-        return merge(shoppingItems);
+    public static List<ShoppingItem> parseToItem(List<String> input) {
+        List<ShoppingItem> shoppingItems = input.stream().map(ItemParser::splitOutItem).collect(toList());
+        return merge(generateBarcodeAmountMap(shoppingItems));
     }
 
-    private static List<ShoppingItem> merge(List<ShoppingItem> shoppingItems) {
+    private static List<ShoppingItem> merge(Map<String, Integer> inputMap) {
+        return inputMap.entrySet().stream()
+                .map(entry -> new ShoppingItem(entry.getKey(), entry.getValue()))
+                .collect(toList());
+
+    }
+
+    private static Map<String, Integer> generateBarcodeAmountMap(List<ShoppingItem> shoppingItems) {
         Map<String, Integer> itemMap = new LinkedHashMap<>();
         shoppingItems.forEach(item -> {
             String barcode = item.getBarcode();
             int amount = item.getAmount();
             Integer existAmount = itemMap.get(barcode);
-            amount = existAmount == null ? amount : amount +  existAmount;
+            amount = existAmount == null ? amount : amount + existAmount;
             itemMap.put(barcode, amount);
         });
-        return  itemMap.entrySet().stream()
-                .map(entry -> new ShoppingItem(entry.getKey(), entry.getValue()))
-                .collect(toList());
-
+        return itemMap;
     }
 
     private static ShoppingItem splitOutItem(String line) {
