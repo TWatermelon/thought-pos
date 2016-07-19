@@ -2,13 +2,12 @@ package tw.thoughtpos.promotions;
 
 import tw.thoughtpos.domain.ShoppingItem;
 
-public class AmountFreePromotions implements Promotions {
-    private String name;
+public class AmountFreePromotions extends Promotions {
     private int buyAmount;
     private int freeAmount;
 
     public AmountFreePromotions(String name, String arguments) {
-        this.name = name;
+        super.name = name;
         this.buyAmount = Integer.parseInt(arguments.split(" ")[0]);
         this.freeAmount = Integer.parseInt(arguments.split(" ")[1]);
     }
@@ -20,10 +19,6 @@ public class AmountFreePromotions implements Promotions {
         benefit.setName(saveAmount > 0 ? this.name : "");
         benefit.setSaveAmount(saveAmount);
         return benefit;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getBuyAmount() {

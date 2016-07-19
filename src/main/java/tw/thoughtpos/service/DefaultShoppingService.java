@@ -9,6 +9,7 @@ import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.promotions.Promotions;
 import tw.thoughtpos.repository.GoodsRepository;
+import tw.thoughtpos.repository.PromotionsRepository;
 
 
 @Service
@@ -17,7 +18,10 @@ public class DefaultShoppingService implements ShoppingService {
     private GoodsRepository goodsRepository;
 
     @Autowired
-    private DefaultPromotionsService promotionsService;
+    private PromotionsService promotionsService;
+
+    @Autowired
+    private PromotionsRepository promotionsRepository;
 
     public List<ShoppingItem> bindGoods(List<ShoppingItem> shoppingItems) {
         shoppingItems.forEach(this::bindGoods);
@@ -30,10 +34,10 @@ public class DefaultShoppingService implements ShoppingService {
 
     public List<ShoppingItem> prepareBenefits(List<ShoppingItem> shoppingItems) {
         for (ShoppingItem shoppingItem : shoppingItems) {
-           Promotions discountPromotions =
-                    promotionsService.findPromotions(shoppingItem.getBarcode());
-            if (discountPromotions != null) {
-                shoppingItem.setBenefit(discountPromotions.prepareBenefit(shoppingItem));
+           Promotions promotions =
+                    promotionsRepository.getPromotions(shoppingItem.getBarcode());
+            if (promotions != null) {
+                shoppingItem.setBenefit(promotions.prepareBenefit(shoppingItem));
             }
         }
         return shoppingItems;

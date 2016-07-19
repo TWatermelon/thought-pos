@@ -22,6 +22,7 @@ import tw.thoughtpos.promotions.Benefit;
 import tw.thoughtpos.promotions.DiscountPromotions;
 import tw.thoughtpos.promotions.Promotions;
 import tw.thoughtpos.repository.GoodsRepository;
+import tw.thoughtpos.repository.PromotionsRepository;
 
 public class ShoppingServiceTest {
     private static final String APPLE_BARCODE = "ITEM000001";
@@ -38,6 +39,9 @@ public class ShoppingServiceTest {
 
     @Mock
     private GoodsRepository goodsRepository;
+
+    @Mock
+    private PromotionsRepository promotionsRepository;
 
     @Mock
     private DefaultPromotionsService promotionsService;
@@ -65,8 +69,10 @@ public class ShoppingServiceTest {
         List<ShoppingItem> shoppingItemList = createShoppingItemList();
 
         Promotions promotions = mock(Promotions.class);
-        when(promotions.prepareBenefit(shoppingItemList.get(0)))
-                .thenReturn(expectedBenefit);
+        when(promotions.prepareBenefit(shoppingItemList.get(0))).thenReturn(expectedBenefit);
+        when(promotionsRepository.getPromotions(APPLE_BARCODE))
+                .thenReturn(promotions);
+
         shoppingService.prepareBenefits(shoppingItemList);
 
         assertBenefit(shoppingItemList.get(0).getBenefit(), expectedBenefit);
