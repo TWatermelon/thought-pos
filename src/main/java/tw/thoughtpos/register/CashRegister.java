@@ -120,7 +120,7 @@ public final class CashRegister {
 
     private double getSubtotalExcludeSave(ShoppingItem shoppingItem) {
         return shoppingItem.getSubtotal() - getAllowance(shoppingItem) -
-                shoppingItem.getBenefit().getSaveAmount() * shoppingItem.getPrice();
+                shoppingItem.getBenefit().getSaveAmount() * shoppingItem.getGoods().getPrice();
     }
 
     private String generateShoppingItemInfo(ShoppingItem shoppingItem) {

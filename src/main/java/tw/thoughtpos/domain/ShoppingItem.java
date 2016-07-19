@@ -28,15 +28,11 @@ public class ShoppingItem {
     }
 
     public double getSubtotal() {
-        return getAmount() * getPrice();
+        return getAmount() * goods.getPrice();
     }
 
     public void setGoods(Goods goods) {
         this.goods = goods;
-    }
-
-    public double getPrice() {
-        return goods.getPrice();
     }
 
     public Goods getGoods() {
