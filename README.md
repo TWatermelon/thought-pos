@@ -16,6 +16,10 @@ Open the `thought-pos.ipr` using IntelliJ
 
 This will run checkstyle, unit test and code coverage check
 
+for more details, go check
+[CheckStyle](https://github.com/TWatermelon/thought-pos/blob/master/config/checkstyle/checkstyle.xml)
+[TestConverage](https://github.com/TWatermelon/thought-pos/blob/master/gradle.properties)
+
 #### start application
 `./gradlew bootRun` or `java -jar build/libs/pos-0.1.0.jar`
 #### swagger-ui links
