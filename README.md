@@ -18,6 +18,10 @@ This will run checkstyle, unit test and code coverage check
 
 #### start application
 `./gradlew bootRun` or `java -jar build/libs/pos-0.1.0.jar`
+#### swagger-ui links
+`http://localhost:8081/pos/swagger-ui.html`
+##### username: admin
+##### password: admin
 
 ### 测试运行结果
 #### 有95折优惠和买二赠一优惠：
@@ -28,6 +32,12 @@ This will run checkstyle, unit test and code coverage check
 ![result](http://bmob-cdn-1019.b0.upaiyun.com/2016/07/19/6db26c5e4027ad8f80566089a9b183b2.png)
 #### 无优惠：
 ![result](http://bmob-cdn-1019.b0.upaiyun.com/2016/07/19/795308694031ce0080f517fcc380de6d.png)
+#### swagger-ui添加Goods
+![addGoods1](http://bmob-cdn-1019.b0.upaiyun.com/2016/07/20/ad9c5ca040531796807c043051adeaee.png)
+![addGoods2](http://bmob-cdn-1019.b0.upaiyun.com/2016/07/20/787537f14082aedc80136c13472998ea.png)
+##### generateReceipt
+![generateReceipt1](http://bmob-cdn-1019.b0.upaiyun.com/2016/07/20/75a29a7a404a49cf805f2063e9066d3a.png)
+![generateReceipt1](http://bmob-cdn-1019.b0.upaiyun.com/2016/07/20/7b6e6376402b5b9c80867704111fe28e.png)
 
 
 ### TODO
