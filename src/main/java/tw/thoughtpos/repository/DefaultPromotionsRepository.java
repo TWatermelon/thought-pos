@@ -26,11 +26,7 @@ public class DefaultPromotionsRepository implements PromotionsRepository {
         promotionsComparator = (code1, code2) -> {
             int priority1 = findPromotions(code1).getPriority();
             int priority2 = findPromotions(code2).getPriority();
-            if (priority1 < priority2) {
-                return -1;
-            } else {
-                return 1;
-            }
+            return priority1 < priority2 ? -1 : 1;
         };
 
         barcodePromotionsCodeMap = new HashMap<>();
