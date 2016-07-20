@@ -32,13 +32,10 @@ public class GoodsControllerTest {
     @Test
     public void should_add_right_goods() {
         Goods goods = new Goods(BARCODE);
-        when(defaultGoodsService.addGoods(BARCODE, goods)).thenReturn(goods);
-        ResponseEntity<?> responseEntity = goodsController.addGoods(BARCODE, goods);
+        when(defaultGoodsService.addGoods(goods)).thenReturn(goods);
+        ResponseEntity<?> responseEntity = goodsController.addGoods(goods);
         assertThat(responseEntity.getStatusCode(), is(CREATED));
         assertThat(responseEntity.getBody(), is(goods));
 
     }
-
-
-
 }

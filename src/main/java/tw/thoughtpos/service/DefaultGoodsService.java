@@ -11,8 +11,8 @@ public class DefaultGoodsService {
     @Autowired
     private GoodsRepository goodsRepository;
 
-    public Goods addGoods(String barcode, Goods goods) {
-        return goodsRepository.addGoods(barcode, goods);
+    public Goods addGoods(Goods goods) {
+        return goodsRepository.addGoods(goods.getBarcode(), goods);
     }
 
 }

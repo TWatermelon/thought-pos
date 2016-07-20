@@ -4,12 +4,14 @@ public class Goods {
     private double price;
     private String name;
     private String unit;
+    private String barcode;
 
     public Goods() {
 
     }
 
     public Goods(String barcode) {
+        this.barcode = barcode;
         this.price = 0d;
     }
 
@@ -37,4 +39,7 @@ public class Goods {
         return unit;
     }
 
+    public String getBarcode() {
+        return barcode;
+    }
 }
