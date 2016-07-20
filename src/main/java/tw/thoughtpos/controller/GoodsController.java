@@ -18,7 +18,7 @@ public class GoodsController {
     private DefaultGoodsService defaultGoodsService;
 
     @RequestMapping(method = POST, value = "/goods")
-    public ResponseEntity<?> addGoods(@RequestBody String barcode, Goods goods) {
+    public ResponseEntity<?> addGoods(@RequestBody String barcode, @RequestBody Goods goods) {
         return new ResponseEntity<>(defaultGoodsService.addGoods(barcode, goods), CREATED);
     }
 }

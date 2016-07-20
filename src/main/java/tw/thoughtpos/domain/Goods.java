@@ -5,6 +5,10 @@ public class Goods {
     private String name;
     private String unit;
 
+    public Goods() {
+
+    }
+
     public Goods(String barcode) {
         this.price = 0d;
     }
