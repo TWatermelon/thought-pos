@@ -19,7 +19,6 @@ import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.promotions.Benefit;
-import tw.thoughtpos.promotions.DiscountPromotions;
 import tw.thoughtpos.promotions.Promotions;
 import tw.thoughtpos.repository.GoodsRepository;
 import tw.thoughtpos.repository.PromotionsRepository;
@@ -43,16 +42,11 @@ public class ShoppingServiceTest {
     @Mock
     private PromotionsRepository promotionsRepository;
 
-    @Mock
-    private DefaultPromotionsService promotionsService;
-
     @Before
     public void setUp() {
         initMocks(this);
         when(goodsRepository.findGoods(APPLE_BARCODE))
                 .thenReturn(createGoods(APPLE_BARCODE, APPLE_NAME, APPLE_PRICE));
-        when(promotionsService.findPromotions(APPLE_BARCODE))
-                .thenReturn(new DiscountPromotions("打折商品", "0.95"));
     }
 
     @Test

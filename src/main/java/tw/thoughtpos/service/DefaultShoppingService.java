@@ -18,9 +18,6 @@ public class DefaultShoppingService implements ShoppingService {
     private GoodsRepository goodsRepository;
 
     @Autowired
-    private PromotionsService promotionsService;
-
-    @Autowired
     private PromotionsRepository promotionsRepository;
 
     public List<ShoppingItem> bindGoods(List<ShoppingItem> shoppingItems) {
