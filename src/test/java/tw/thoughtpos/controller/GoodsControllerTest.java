@@ -1,27 +1,27 @@
-package tw.thoughtpos.service;
+package tw.thoughtpos.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.springframework.http.HttpStatus.CREATED;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
 import tw.thoughtpos.domain.Goods;
-import tw.thoughtpos.repository.GoodsRepository;
+import tw.thoughtpos.service.DefaultGoodsService;
 
-@Service
-public class DefaultGoodsServiceTest {
+public class GoodsControllerTest {
     private static final String BARCODE = "ITEM00007";
     @InjectMocks
-    private DefaultGoodsService defaultGoodsService;
+    private GoodsController goodsController;
 
     @Mock
-    private GoodsRepository goodsRepository;
+    private DefaultGoodsService defaultGoodsService;
 
     @Before
     public void setUp() throws Exception {
@@ -30,12 +30,15 @@ public class DefaultGoodsServiceTest {
     }
 
     @Test
-    public void should_add_right_goods_given_barcode_and_goods() {
+    public void should_add_right_goods() {
         Goods goods = new Goods(BARCODE);
-        goods.setName("pen");
-        goods.setPrice(30d);
-        goods.setUnit("支");
         when(defaultGoodsService.addGoods(BARCODE, goods)).thenReturn(goods);
-        assertThat(goodsRepository.addGoods(BARCODE, goods), is(goods));
+        ResponseEntity<?> responseEntity = goodsController.addGoods(BARCODE, goods);
+        assertThat(responseEntity.getStatusCode(), is(CREATED));
+        assertThat(responseEntity.getBody(), is(goods));
+
     }
+
+
+
 }

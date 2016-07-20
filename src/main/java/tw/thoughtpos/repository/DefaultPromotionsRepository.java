@@ -21,7 +21,7 @@ public class DefaultPromotionsRepository implements PromotionsRepository {
     public DefaultPromotionsRepository() {
         promotionsMap = new HashMap<>();
         promotionsMap.put("P0001", new DiscountPromotions("单品打折", "0.8d"));
-        promotionsMap.put("P0002", new AmountFreePromotions("买二赠一", "2 1"));
+        promotionsMap.put("P0002", new AmountFreePromotions("买二赠一商品", "2 1"));
 
         promotionsComparator = (code1, code2) -> {
             int priority1 = findPromotions(code1).getPriority();

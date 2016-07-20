@@ -26,7 +26,7 @@ public class PosSystem {
     @Test
     public void output_result() {
         List<String> inputs = asList("ITEM000001",
-                "ITEM000002", "ITEM000003-5", "ITEM000004");
+                "ITEM000002-8", "ITEM000003-5", "ITEM000004");
         ReceiptPrinter.getInstance().print((Receipt) shoppingController.generateReceipt(inputs).getBody(),
                 new ConsolePrinter());
     }
