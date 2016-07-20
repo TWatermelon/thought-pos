@@ -18,6 +18,10 @@ This will run checkstyle, unit test and code coverage check
 
 #### start application
 `./gradlew bootRun` or `java -jar build/libs/pos-0.1.0.jar`
+#### swagger-ui links
+`http://localhost:8081/pos/swagger-ui.html`
+##### username: admin
+##### password: admin
 
 ### 测试运行结果
 #### 有95折优惠和买二赠一优惠：
