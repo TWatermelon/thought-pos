@@ -5,6 +5,7 @@ import tw.thoughtpos.domain.ShoppingItem;
 public abstract class Promotions {
     protected String name;
     protected String details;
+    protected int priority;
 
     public Promotions () {
         this.name = "";
@@ -15,5 +16,13 @@ public abstract class Promotions {
 
     public String getName() {
         return name;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }
