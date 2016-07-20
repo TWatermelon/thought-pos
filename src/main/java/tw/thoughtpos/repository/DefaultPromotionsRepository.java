@@ -7,6 +7,8 @@ import java.util.PriorityQueue;
 
 import org.springframework.stereotype.Repository;
 
+import tw.thoughtpos.promotions.AmountFreePromotions;
+import tw.thoughtpos.promotions.DiscountPromotions;
 import tw.thoughtpos.promotions.Promotions;
 
 @Repository
@@ -25,17 +27,16 @@ public class DefaultPromotionsRepository implements PromotionsRepository {
             return priority1 < priority2 ? -1 : 1;
         };
 
-//        promotionsMap.put("P0001", new DiscountPromotions("单品打折", "0.95d"));
-//        promotionsMap.put("P0002", new AmountFreePromotions("买二赠一商品", "2 1"));
+        promotionsMap.put("P0099", new DiscountPromotions("单品打折", "0.95d"));
+        promotionsMap.put("P0098", new AmountFreePromotions("买二赠一商品", "2 1"));
 
 
-//        PriorityQueue<String> applePromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
-//        applePromotionsPriorityQueue.add("P0001");
-//        PriorityQueue<String> keyringPromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
-//        keyringPromotionsPriorityQueue.add("P0002");
-//
-//        barcodePromotionsCodeMap.put("ITEM000001", applePromotionsPriorityQueue);
-//        barcodePromotionsCodeMap.put("ITEM000002", keyringPromotionsPriorityQueue);
+        PriorityQueue<String> applePromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
+        applePromotionsPriorityQueue.add("P0099");
+        PriorityQueue<String> keyringPromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
+        keyringPromotionsPriorityQueue.add("P0098");
+        barcodePromotionsCodeMap.put("ITEM000099", applePromotionsPriorityQueue);
+        barcodePromotionsCodeMap.put("ITEM000098", keyringPromotionsPriorityQueue);
     }
 
     @Override

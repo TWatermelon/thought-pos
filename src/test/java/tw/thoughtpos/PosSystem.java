@@ -50,8 +50,8 @@ public class PosSystem {
         promotionsController.addPromotions("ITEM000002", "P0002");
     }
 
-    private Goods generateGoods(String item000001, String name, double price, String unit) {
-        Goods goods = new Goods(item000001);
+    private Goods generateGoods(String barcode, String name, double price, String unit) {
+        Goods goods = new Goods(barcode);
         goods.setName(name);
         goods.setPrice(price);
         goods.setUnit(unit);
@@ -61,7 +61,7 @@ public class PosSystem {
     @Test
     public void output_result() {
         List<String> inputs = asList("ITEM000001",
-                "ITEM000002-8", "ITEM000003-5", "ITEM000004");
+                "ITEM000002-8", "ITEM000003-5");
         ReceiptPrinter.getInstance().print((Receipt) shoppingController.generateReceipt(inputs).getBody(),
                 new ConsolePrinter());
     }

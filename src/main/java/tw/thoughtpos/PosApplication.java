@@ -15,8 +15,8 @@ import tw.thoughtpos.utils.HttpUtil;
 public class PosApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(PosApplication.class, args);
-        List<String> inputs = asList("ITEM000001",
-                "ITEM000002-8", "ITEM000003-5", "ITEM000004", "ITEM000005");
+        List<String> inputs = asList("ITEM000099",
+                "ITEM000098-8");
         ReceiptPrinter.getInstance().print(HttpUtil.post("http://localhost:8081/pos/shoppingItems", inputs),
                 new ConsolePrinter());
     }
