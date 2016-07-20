@@ -18,23 +18,23 @@ public class PromotionsController {
     @Autowired
     private PromotionsService promotionsService;
 
-    @RequestMapping(method = POST, value = "/promotions")
+    @RequestMapping(method = POST, value = "/savePromotions")
     public ResponseEntity<?> savePromotions(@RequestBody String promotionsCode,
                                             @RequestBody Promotions promotions) {
         return new ResponseEntity<>(promotionsService.savePromotions(promotionsCode, promotions), CREATED);
     }
 
-    @RequestMapping(method = POST, value = "/promotions")
+    @RequestMapping(method = POST, value = "/findPromotions")
     public ResponseEntity<?> findPromotions(@RequestBody String promotionsCode) {
         return new ResponseEntity<>(promotionsService.findPromotions(promotionsCode), CREATED);
     }
 
-    @RequestMapping(method = POST, value = "/promotions")
+    @RequestMapping(method = POST, value = "/addPromotions")
     public ResponseEntity<?> addPromotions(@RequestBody String barcode, @RequestBody String promotionsCode) {
         return new ResponseEntity<>(promotionsService.addPromotions(barcode, promotionsCode), CREATED);
     }
 
-    @RequestMapping(method = POST, value = "/promotions")
+    @RequestMapping(method = POST, value = "/getPromotions")
     public ResponseEntity<?> getPromotions(@RequestBody String barcode) {
         return new ResponseEntity<>(promotionsService.getPromotions(barcode), CREATED);
     }

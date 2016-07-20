@@ -4,7 +4,6 @@ import static java.util.Arrays.asList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,6 @@ public class PosSystem {
         return goods;
     }
 
-    @Ignore
     @Test
     public void output_result() {
         List<String> inputs = asList("ITEM000001",
