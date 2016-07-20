@@ -27,9 +27,9 @@ public class HttpUtil {
     private static String getContent(List<String> input, String postUrl) throws Exception {
         HttpURLConnection connection = getHttpURLConnection(postUrl);
         PrintWriter out = new PrintWriter(connection.getOutputStream());
-        JSONArray obj = new JSONArray();
-        input.forEach(item -> obj.add(item));
-        out.print(obj.toString());
+        JSONArray jsonArray = new JSONArray();
+        input.forEach(item -> jsonArray.add(item));
+        out.print(jsonArray.toString());
         out.flush();
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String line;
@@ -38,6 +38,7 @@ public class HttpUtil {
             result += "\n" + line;
         }
         out.close();
+        in.close();
         return result;
     }
 
