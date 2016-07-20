@@ -16,7 +16,7 @@ public class PosApplication {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(PosApplication.class, args);
         List<String> inputs = asList("ITEM000099",
-                "ITEM000098-8");
+                "ITEM000098-8", "ITEM000098");
         ReceiptPrinter.getInstance().print(HttpUtil.post("http://localhost:8081/pos/shoppingItems", inputs),
                 new ConsolePrinter());
     }

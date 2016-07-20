@@ -15,9 +15,7 @@ public class DefaultGoodsRepository implements GoodsRepository {
         goodsMap = new HashMap<>();
         goodsMap.put("ITEM000099", generateGoods("ITEM000099", "苹果", 5d, "斤"));
         goodsMap.put("ITEM000098", generateGoods("ITEM000098", "可口可乐", 2.5d, "瓶"));
-//        goodsMap.put("ITEM000003", generateGoods("ITEM000003", "钥匙环", 6d, "个"));
-//        goodsMap.put("ITEM000004", generateGoods("ITEM000004", "猪肉", 13d, "斤"));
-//        goodsMap.put("ITEM000005", generateGoods("ITEM000005", "篮球", 199d, "个"));
+        goodsMap.put("ITEM000097", generateGoods("ITEM000097", "烤鸭", 25d, "只"));
     }
 
     public Map<String, Goods> getGoodsMap() {
