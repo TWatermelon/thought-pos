@@ -1,5 +1,7 @@
 # Thought-POS (for the final battle)
 
+### travis-ci
+
 [![travis-ci](https://api.travis-ci.org/TWatermelon/thought-pos.svg)](https://travis-ci.org/TWatermelon/thought-pos)
 
 ### BUILD
@@ -13,6 +15,9 @@ Open the `thought-pos.ipr` using IntelliJ
 `./gradlew clean build`
 
 This will run checkstyle, unit test and code coverage check
+
+#### start application
+`./gradlew bootRun` or 'java -jar build/libs/pos-0.1.0.jar'
 
 ### 运行结果
 #### 有95折优惠和买二赠一优惠：
