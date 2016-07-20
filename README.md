@@ -17,9 +17,9 @@ Open the `thought-pos.ipr` using IntelliJ
 This will run checkstyle, unit test and code coverage check
 
 #### start application
-`./gradlew bootRun` or 'java -jar build/libs/pos-0.1.0.jar'
+`./gradlew bootRun` or `java -jar build/libs/pos-0.1.0.jar`
 
-### 运行结果
+### 测试运行结果
 #### 有95折优惠和买二赠一优惠：
 ![result](http://bmob-cdn-1019.b0.upaiyun.com/2016/07/19/e8508fc2407a56f88044351b4b43ef62.png)
 #### 只有95折优惠：
