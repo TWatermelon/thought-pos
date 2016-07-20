@@ -8,6 +8,9 @@ public class ShoppingItem {
     private Goods goods;
     private Benefit benefit;
 
+    public ShoppingItem() {
+    }
+
     public ShoppingItem(String barcode, int amount) {
         this.barcode = barcode;
         this.setAmount(amount);
