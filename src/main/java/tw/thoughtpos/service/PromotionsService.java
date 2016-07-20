@@ -1,8 +1,8 @@
-package tw.thoughtpos.repository;
+package tw.thoughtpos.service;
 
 import tw.thoughtpos.promotions.Promotions;
 
-public interface PromotionsRepository {
+public interface PromotionsService {
     Promotions savePromotions(String promotionsCode, Promotions promotions);
 
     Promotions findPromotions(String promotionsCode);

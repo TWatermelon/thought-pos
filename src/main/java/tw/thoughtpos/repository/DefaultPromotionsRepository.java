@@ -7,8 +7,6 @@ import java.util.PriorityQueue;
 
 import org.springframework.stereotype.Repository;
 
-import tw.thoughtpos.promotions.AmountFreePromotions;
-import tw.thoughtpos.promotions.DiscountPromotions;
 import tw.thoughtpos.promotions.Promotions;
 
 @Repository
@@ -20,28 +18,30 @@ public class DefaultPromotionsRepository implements PromotionsRepository {
 
     public DefaultPromotionsRepository() {
         promotionsMap = new HashMap<>();
-        promotionsMap.put("P0001", new DiscountPromotions("单品打折", "0.95d"));
-        promotionsMap.put("P0002", new AmountFreePromotions("买二赠一商品", "2 1"));
-
+        barcodePromotionsCodeMap = new HashMap<>();
         promotionsComparator = (code1, code2) -> {
             int priority1 = findPromotions(code1).getPriority();
             int priority2 = findPromotions(code2).getPriority();
             return priority1 < priority2 ? -1 : 1;
         };
 
-        barcodePromotionsCodeMap = new HashMap<>();
-        PriorityQueue<String> applePromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
-        applePromotionsPriorityQueue.add("P0001");
-        PriorityQueue<String> keyringPromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
-        keyringPromotionsPriorityQueue.add("P0002");
+//        promotionsMap.put("P0001", new DiscountPromotions("单品打折", "0.95d"));
+//        promotionsMap.put("P0002", new AmountFreePromotions("买二赠一商品", "2 1"));
 
-        barcodePromotionsCodeMap.put("ITEM000001", applePromotionsPriorityQueue);
-        barcodePromotionsCodeMap.put("ITEM000002", keyringPromotionsPriorityQueue);
+
+//        PriorityQueue<String> applePromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
+//        applePromotionsPriorityQueue.add("P0001");
+//        PriorityQueue<String> keyringPromotionsPriorityQueue = new PriorityQueue<>(promotionsComparator);
+//        keyringPromotionsPriorityQueue.add("P0002");
+//
+//        barcodePromotionsCodeMap.put("ITEM000001", applePromotionsPriorityQueue);
+//        barcodePromotionsCodeMap.put("ITEM000002", keyringPromotionsPriorityQueue);
     }
 
     @Override
-    public void savePromotions(String promotionsCode, Promotions promotions) {
+    public Promotions savePromotions(String promotionsCode, Promotions promotions) {
         this.promotionsMap.put(promotionsCode, promotions);
+        return promotions;
     }
 
     @Override
@@ -50,16 +50,18 @@ public class DefaultPromotionsRepository implements PromotionsRepository {
     }
 
     @Override
-    public void addPromotions(String barcode, String promotionsCode) {
+    public Promotions addPromotions(String barcode, String promotionsCode) {
         if (promotionsMap.containsKey(promotionsCode)) {
             PriorityQueue<String> promotions = barcodePromotionsCodeMap.get(barcode);
             if (promotions == null) {
                 promotions = new PriorityQueue<>(promotionsComparator);
+                promotions.add(promotionsCode);
             } else if (!promotions.contains(promotionsCode)) {
                 promotions.add(promotionsCode);
             }
             this.barcodePromotionsCodeMap.put(barcode, promotions);
         }
+        return promotionsMap.get(promotionsCode);
     }
 
     @Override

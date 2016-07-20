@@ -6,20 +6,20 @@ import tw.thoughtpos.promotions.Promotions;
 import tw.thoughtpos.repository.PromotionsRepository;
 
 @Service
-public class DefaultPromotionsService {
+public class DefaultPromotionsService implements PromotionsService {
     @Autowired
     private PromotionsRepository promotionsRepository;
 
-    public void savePromotions(String promotionsCode, Promotions promotions) {
-        promotionsRepository.savePromotions(promotionsCode, promotions);
+    public Promotions savePromotions(String promotionsCode, Promotions promotions) {
+        return promotionsRepository.savePromotions(promotionsCode, promotions);
     }
 
     public Promotions findPromotions(String promotionsCode) {
         return promotionsRepository.findPromotions(promotionsCode);
     }
 
-    public void addPromotions(String barcode, String promotionsCode) {
-        promotionsRepository.addPromotions(barcode, promotionsCode);
+    public Promotions addPromotions(String barcode, String promotionsCode) {
+        return promotionsRepository.addPromotions(barcode, promotionsCode);
     }
 
     public Promotions getPromotions(String barcode) {

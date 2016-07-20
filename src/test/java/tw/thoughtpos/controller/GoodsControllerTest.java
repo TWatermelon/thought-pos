@@ -36,6 +36,5 @@ public class GoodsControllerTest {
         ResponseEntity<?> responseEntity = goodsController.addGoods(goods);
         assertThat(responseEntity.getStatusCode(), is(CREATED));
         assertThat(responseEntity.getBody(), is(goods));
-
     }
 }

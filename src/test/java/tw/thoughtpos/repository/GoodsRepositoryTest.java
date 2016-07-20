@@ -14,7 +14,7 @@ public class GoodsRepositoryTest {
     private static final String APPLE_NAME = "苹果";
     private static final double APPLE_PRICE = 5d;
 
-    private GoodsRepository goodsRepository;
+    private DefaultGoodsRepository goodsRepository;
 
     @Before
     public void setUp() {
@@ -23,20 +23,21 @@ public class GoodsRepositoryTest {
 
     @Test
     public void should_get_the_right_goods_given_barcode() {
+        Goods apple = new Goods(APPLE_BARCODE);
+        apple.setName(APPLE_NAME);
+        goodsRepository.getGoodsMap().put(APPLE_BARCODE, apple);
         Goods goods = goodsRepository.findGoods(APPLE_BARCODE);
-        assertThat(goods.getName(), is(APPLE_NAME));
-        assertThat(goods.getPrice(), is(APPLE_PRICE));
+        assertThat(goods, is(apple));
     }
 
     @Test
     public void should_add_the_right_goods_given_barcode_and_goods() {
-        Goods goods = new Goods(APPLE_BARCODE);
-        goods.setUnit("斤");
-        goods.setName("apple");
-        goods.setPrice(6d);
-       goodsRepository.addGoods(APPLE_BARCODE, goods);
-        Goods goodsActual = goodsRepository.findGoods(APPLE_BARCODE);
-        assertThat(goodsActual.getName(), is("apple"));
-        assertThat(goodsActual.getPrice(), is(6d));
+        Goods apple = new Goods(APPLE_BARCODE);
+        apple.setUnit("斤");
+        apple.setName("apple");
+        apple.setPrice(6d);
+        goodsRepository.addGoods(APPLE_BARCODE, apple);
+        Goods goodsActual = goodsRepository.getGoodsMap().get(APPLE_BARCODE);
+        assertThat(goodsActual, is(apple));
     }
 }

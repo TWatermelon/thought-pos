@@ -36,7 +36,7 @@ public class ShoppingControllerTest {
     }
 
     @Test
-    public void should_calculate_item_when_given_input_list() {
+    public void should_prepare_benefits_when_given_input_list() {
         List<String> inputs = asList("ITEM000001-3");
         List<ShoppingItem> expectedItems = new ArrayList<>();
         when(shoppingService.prepareBenefits(asList(new ShoppingItem("ITEM000001", 3))))

@@ -1,6 +1,7 @@
 package tw.thoughtpos.repository;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -29,7 +30,8 @@ public class PromotionsRepositoryTest {
 
     @Before
     public void setUp() {
-        promotionsRepository.getPromotionsMap().clear();
+        promotionsMap.clear();
+        barcodePromotionsCodeMap.clear();
     }
 
     @Test
@@ -76,9 +78,13 @@ public class PromotionsRepositoryTest {
     }
 
     @Test
+    public void should_get_null_promotions_given_barcode() {
+        assertEquals(promotionsRepository.getPromotions("abc"), null);
+    }
+
+    @Test
     public void should_add_promotions_for_given_goods_correctly() {
         promotionsMap.put(DISCOUNT_PROMOTIONS_CODE, discountPromotions);
-
         promotionsRepository.addPromotions(APPLE_BARCODE, DISCOUNT_PROMOTIONS_CODE);
 
         Assert.assertThat(promotionsRepository
