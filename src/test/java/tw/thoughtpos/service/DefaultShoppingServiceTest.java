@@ -23,7 +23,7 @@ import tw.thoughtpos.promotions.Promotions;
 import tw.thoughtpos.repository.GoodsRepository;
 import tw.thoughtpos.repository.PromotionsRepository;
 
-public class ShoppingServiceTest {
+public class DefaultShoppingServiceTest {
     private static final String APPLE_BARCODE = "ITEM000001";
     private static final String APPLE_NAME = "苹果";
     private static final double APPLE_PRICE = 5d;
