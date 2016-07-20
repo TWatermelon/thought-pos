@@ -27,4 +27,16 @@ public class GoodsRepositoryTest {
         assertThat(goods.getName(), is(APPLE_NAME));
         assertThat(goods.getPrice(), is(APPLE_PRICE));
     }
+
+    @Test
+    public void should_add_the_right_goods_given_barcode_and_goods() {
+        Goods goods = new Goods(APPLE_BARCODE);
+        goods.setUnit("斤");
+        goods.setName("apple");
+        goods.setPrice(6d);
+       goodsRepository.addGoods(APPLE_BARCODE, goods);
+        Goods goodsActual = goodsRepository.findGoods(APPLE_BARCODE);
+        assertThat(goodsActual.getName(), is("apple"));
+        assertThat(goodsActual.getPrice(), is(6d));
+    }
 }

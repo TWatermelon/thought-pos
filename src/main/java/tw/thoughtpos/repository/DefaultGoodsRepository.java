@@ -31,5 +31,10 @@ public class DefaultGoodsRepository implements GoodsRepository {
     public Goods findGoods(String barcode) {
         return goodsMap.get(barcode);
     }
+
+    @Override
+    public Goods addGoods(String barcode, Goods goods) {
+        return goodsMap.put(barcode, goods);
+    }
 }
 
