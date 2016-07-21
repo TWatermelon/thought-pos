@@ -9,8 +9,8 @@ public final class ReceiptPrinter {
     }
 
     public void print(Receipt receipt, IPrinter printer) {
-        CashRegister cashRegister = CashRegister.generateCashRegister(receipt);
-        printer.print(cashRegister.getReceiptInfo());
+        CashRegister cashRegister = CashRegister.generateCashRegister();
+        printer.print(cashRegister.getReceiptInfo(receipt));
     }
 
     public static ReceiptPrinter getInstance() {

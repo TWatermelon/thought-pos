@@ -1,5 +1,7 @@
 package tw.thoughtpos.repository;
 
+import static tw.thoughtpos.domain.Goods.generateGoods;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,13 +24,6 @@ public class DefaultGoodsRepository implements GoodsRepository {
         return goodsMap;
     }
 
-    private Goods generateGoods(String barcode, String name, double price, String unit) {
-        Goods goods = new Goods(barcode);
-        goods.setName(name);
-        goods.setPrice(price);
-        goods.setUnit(unit);
-        return goods;
-    }
 
     public Goods findGoods(String barcode) {
         return goodsMap.get(barcode);

@@ -1,6 +1,8 @@
 package tw.thoughtpos;
 
 import static java.util.Arrays.asList;
+import static tw.thoughtpos.domain.Goods.generateGoods;
+
 import java.util.List;
 
 import org.junit.Before;
@@ -14,7 +16,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import tw.thoughtpos.controller.GoodsController;
 import tw.thoughtpos.controller.PromotionsController;
 import tw.thoughtpos.controller.ShoppingController;
-import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.promotions.AmountFreePromotions;
 import tw.thoughtpos.promotions.DiscountPromotions;
@@ -50,13 +51,6 @@ public class PosSystem {
         promotionsController.addPromotions("ITEM000002", "P0002");
     }
 
-    private Goods generateGoods(String barcode, String name, double price, String unit) {
-        Goods goods = new Goods(barcode);
-        goods.setName(name);
-        goods.setPrice(price);
-        goods.setUnit(unit);
-        return goods;
-    }
 
     @Test
     public void output_result() {

@@ -19,40 +19,36 @@ import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
 import tw.thoughtpos.promotions.Benefit;
 
-public final class CashRegister {
-    private Receipt receipt;
+public class CashRegister {
 
-    public  static CashRegister generateCashRegister(Receipt receipt) {
+    public static CashRegister generateCashRegister() {
         CashRegister cashRegister = new CashRegister();
-        cashRegister.setReceipt(receipt);
         return cashRegister;
     }
 
-    public String getReceiptInfo() {
+    public String getReceiptInfo(Receipt receipt) {
         return new StringBuilder().append(TITLE)
-                .append(getAllItemsDetail())
-                .append(getAllPromotionsInfo())
+                .append(getAllItemsDetail(receipt))
+                .append(getAllPromotionsInfo(receipt))
                 .append(SEPARATOR_LINE)
                 .append(getTotalPriceInfo(receipt.getTotalPrice() - receipt.getTotalSave()))
                 .append(getTotalSaveInfo(receipt.getTotalSave()))
                 .toString();
     }
 
-    private String getAllItemsDetail() {
-        return receipt.getShoppingItems().stream().map(shoppingItem ->
-                getItemDetail(shoppingItem)).collect(joining());
+    private String getAllItemsDetail(Receipt receipt) {
+        return receipt.getShoppingItems().stream().map(this::getItemDetail).collect(joining());
     }
 
-    private String getAllPromotionsInfo() {
-        return mergeShoppingItemsWithPromotions(getShoppingItemsWithPromotions()).entrySet().stream()
+    private String getAllPromotionsInfo(Receipt receipt) {
+        return mergeShoppingItemsWithPromotions(getShoppingItemsWithPromotions(receipt)).entrySet().stream()
                 .map(entry -> getPromotionsInfo(entry.getKey(), entry.getValue())).collect(joining());
     }
 
     private String getPromotionsInfo(String name, List<ShoppingItem> shoppingItems) {
         StringBuilder builder = new StringBuilder();
         if (name.equals("买二赠一商品")) {
-            builder.append(SEPARATOR_LINE)
-                    .append(name + "：").append(NEW_LINE_CHAR);
+            builder.append(SEPARATOR_LINE).append(name).append("：").append(NEW_LINE_CHAR);
             shoppingItems.forEach(shoppingItem -> {
                 Goods goods = shoppingItem.getGoods();
                 Benefit benefit = shoppingItem.getBenefit();
@@ -76,7 +72,6 @@ public final class CashRegister {
                 .append(MONEY_UNIT).append(NEW_LINE_CHAR).toString()
                 : builder.toString();
     }
-
 
     private String getAmountInfo(ShoppingItem shoppingItem) {
         return new StringBuilder().append("数量：").append(shoppingItem.getAmount()).toString();
@@ -131,7 +126,7 @@ public final class CashRegister {
                 .append(NEW_LINE_CHAR).toString();
     }
 
-    private  Map<String, List<ShoppingItem>> mergeShoppingItemsWithPromotions(
+    private Map<String, List<ShoppingItem>> mergeShoppingItemsWithPromotions(
             List<ShoppingItem> shoppingItems) {
         Map<String, List<ShoppingItem>> result = new HashMap<>();
         shoppingItems.forEach(item -> {
@@ -150,7 +145,7 @@ public final class CashRegister {
 
     }
 
-    private List<ShoppingItem> getShoppingItemsWithPromotions() {
+    private List<ShoppingItem> getShoppingItemsWithPromotions(Receipt receipt) {
         return receipt.getShoppingItems().stream()
                 .filter(shoppingItem -> !shoppingItem.getBenefit().getName().equals(""))
                 .collect(toList());
@@ -160,7 +155,4 @@ public final class CashRegister {
         return generateShoppingItemInfo(shoppingItem);
     }
 
-    public void setReceipt(Receipt receipt) {
-        this.receipt = receipt;
-    }
 }

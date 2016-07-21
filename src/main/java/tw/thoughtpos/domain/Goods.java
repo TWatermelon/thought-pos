@@ -15,6 +15,14 @@ public class Goods {
         this.price = 0d;
     }
 
+    public static Goods generateGoods(String barcode, String name, double price, String unit) {
+        Goods goods = new Goods(barcode);
+        goods.setName(name);
+        goods.setPrice(price);
+        goods.setUnit(unit);
+        return goods;
+    }
+
     public void setPrice(double price) {
         this.price = price;
     }
