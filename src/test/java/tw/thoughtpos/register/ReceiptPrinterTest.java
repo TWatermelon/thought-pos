@@ -2,6 +2,7 @@ package tw.thoughtpos.register;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static tw.thoughtpos.domain.Goods.generateGoods;
 import static tw.thoughtpos.utils.ConstantUtil.NEW_LINE_CHAR;
 
 import java.util.ArrayList;
@@ -19,17 +20,19 @@ public class ReceiptPrinterTest {
 
     private List<ShoppingItem> shoppingItems;
     private Receipt receipt;
+    private Goods apple;
 
     @Before
     public void setUp() throws Exception {
         shoppingItems = new ArrayList<>();
+        apple = generateGoods("ITEM00001", "苹果", 5.00d, "斤");
     }
 
     @Test
     public void should_print_receipt_without_promotions_goods() throws Exception {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, ""));
+               apple, generateBenefit(0d, 0, ""));
         shoppingItems.add(shoppingItem);
         receipt = new Receipt(shoppingItems);
         ReceiptPrinter.getInstance().print(receipt, printer);
@@ -40,11 +43,11 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_with_discount_promotions() {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, ""));
+                apple, generateBenefit(1.00d, 0, ""));
         ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00006", 5,
-                generateGoods("ITEM00006", 8.00d, "芒果", "斤"), generateBenefit(2.00d, 0, ""));
+                generateGoods("ITEM00006", "芒果", 8.00d, "斤"), generateBenefit(2.00d, 0, ""));
         ShoppingItem shoppingItem2 = generateShoppingItem("ITEM00003", 5,
-                generateGoods("ITEM00003", 50.00d, "茶壶", "个"), generateBenefit(0d, 0, ""));
+                generateGoods("ITEM00003", "茶壶", 50.00d, "个"), generateBenefit(0d, 0, ""));
 
         shoppingItems.add(shoppingItem2);
         shoppingItems.add(shoppingItem0);
@@ -58,9 +61,9 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_with_buy_two_present_one_promotions() {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(0d, 0, ""));
+               apple, generateBenefit(0d, 0, ""));
         ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00003", 3,
-                generateGoods("ITEM00003", 5.00d, "可乐", "瓶"), generateBenefit(0d, 1, "买二赠一商品"));
+                generateGoods("ITEM00003", "可乐", 5.00d, "瓶"), generateBenefit(0d, 1, "买二赠一商品"));
 
         shoppingItems.add(shoppingItem0);
         shoppingItems.add(shoppingItem1);
@@ -73,10 +76,10 @@ public class ReceiptPrinterTest {
     public void should_print_receipt_with_multiple_promotions_goods() throws Exception {
         IPrinter printer = mock(IPrinter.class);
         ShoppingItem shoppingItem0 = generateShoppingItem("ITEM00001", 4,
-                generateGoods("ITEM00001", 5.00d, "苹果", "斤"), generateBenefit(1.00d, 0, ""));
+               apple, generateBenefit(1.00d, 0, ""));
         shoppingItems.add(shoppingItem0);
         ShoppingItem shoppingItem1 = generateShoppingItem("ITEM00002", 3,
-                generateGoods("ITEM00002", 5.00d, "可乐", "瓶"), generateBenefit(0d, 1, "买二赠一商品"));
+                generateGoods("ITEM00002", "可乐", 5.00d, "瓶"), generateBenefit(0d, 1, "买二赠一商品"));
         shoppingItems.add(shoppingItem1);
         receipt = new Receipt(shoppingItems);
         ReceiptPrinter.getInstance().print(receipt, printer);
@@ -146,12 +149,5 @@ public class ReceiptPrinterTest {
         benefit.setSaveAmount(saveAmount);
         return benefit;
     }
-
-    private Goods generateGoods(String barcode, double price, String name, String unit) {
-        Goods goods = new Goods(barcode);
-        goods.setPrice(price);
-        goods.setName(name);
-        goods.setUnit(unit);
-        return goods;
-    }
+    
 }
