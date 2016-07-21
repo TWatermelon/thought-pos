@@ -24,7 +24,7 @@ public class DefaultGoodsRepository implements GoodsRepository {
         return goodsMap;
     }
 
-
+    @Override
     public Goods findGoods(String barcode) {
         return goodsMap.get(barcode);
     }

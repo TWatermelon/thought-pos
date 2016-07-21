@@ -38,4 +38,11 @@ public class DefaultGoodsServiceTest {
         when(defaultGoodsService.addGoods(goods)).thenReturn(goods);
         assertThat(goodsRepository.addGoods(BARCODE, goods), is(goods));
     }
+
+    @Test
+    public void should_find_right_goods_given_barcode() {
+        Goods expectedGoods = new Goods(BARCODE);
+        when(defaultGoodsService.findGoods(BARCODE)).thenReturn(expectedGoods);
+        assertThat(goodsRepository.findGoods(BARCODE), is(expectedGoods));
+    }
 }

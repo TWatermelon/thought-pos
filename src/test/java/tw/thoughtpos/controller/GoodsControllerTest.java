@@ -5,6 +5,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,5 +37,14 @@ public class GoodsControllerTest {
         ResponseEntity<?> responseEntity = goodsController.addGoods(goods);
         assertThat(responseEntity.getStatusCode(), is(CREATED));
         assertThat(responseEntity.getBody(), is(goods));
+    }
+
+    @Test
+    public void should_find_right_goods_given_barcode() {
+        Goods expectedGoods = new Goods(BARCODE);
+        when(defaultGoodsService.findGoods(BARCODE)).thenReturn(expectedGoods);
+        ResponseEntity<?> responseEntity = goodsController.findGoods(BARCODE);
+        assertThat(responseEntity.getStatusCode(), is(OK));
+        assertThat(responseEntity.getBody(), is(expectedGoods));
     }
 }

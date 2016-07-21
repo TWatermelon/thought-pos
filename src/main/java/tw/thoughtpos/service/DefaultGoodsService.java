@@ -15,4 +15,9 @@ public class DefaultGoodsService implements GoodService {
         return goodsRepository.addGoods(goods.getBarcode(), goods);
     }
 
+    @Override
+    public Goods findGoods(String barcode) {
+        return goodsRepository.findGoods(barcode);
+    }
+
 }
