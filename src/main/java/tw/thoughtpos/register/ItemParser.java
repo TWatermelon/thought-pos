@@ -1,4 +1,4 @@
-package tw.thoughtpos.utils;
+package tw.thoughtpos.register;
 
 import static java.lang.Integer.parseInt;
 import static java.util.stream.Collectors.toList;
@@ -15,19 +15,19 @@ public class ItemParser {
     private static final int DEFAULT_VALUE = 1;
     private static final int SPLIT_LENGTH = 2;
 
-    public static List<ShoppingItem> parseToItem(List<String> input) {
-        List<ShoppingItem> shoppingItems = input.stream().map(ItemParser::splitOutItem).collect(toList());
+    public List<ShoppingItem> parseToItem(List<String> input) {
+        List<ShoppingItem> shoppingItems = input.stream().map(this::splitOutItem).collect(toList());
         return merge(generateBarcodeAmountMap(shoppingItems));
     }
 
-    private static List<ShoppingItem> merge(Map<String, Integer> inputMap) {
+    private List<ShoppingItem> merge(Map<String, Integer> inputMap) {
         return inputMap.entrySet().stream()
                 .map(entry -> new ShoppingItem(entry.getKey(), entry.getValue()))
                 .collect(toList());
 
     }
 
-    private static Map<String, Integer> generateBarcodeAmountMap(List<ShoppingItem> shoppingItems) {
+    private Map<String, Integer> generateBarcodeAmountMap(List<ShoppingItem> shoppingItems) {
         Map<String, Integer> itemMap = new LinkedHashMap<>();
         shoppingItems.forEach(item -> {
             String barcode = item.getBarcode();
@@ -39,7 +39,7 @@ public class ItemParser {
         return itemMap;
     }
 
-    private static ShoppingItem splitOutItem(String line) {
+    private ShoppingItem splitOutItem(String line) {
         String[] splitResult = line.split(SPLIT_CHAR);
         int amount = splitResult.length == SPLIT_LENGTH ? parseInt(splitResult[1]) : DEFAULT_VALUE;
         return new ShoppingItem(splitResult[0], amount);

@@ -10,19 +10,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import tw.thoughtpos.domain.ShoppingItem;
+import tw.thoughtpos.register.ItemParser;
 
 public class ItemParserTest {
 
-    private List<String> inout;
+    private List<String> input;
+
+    private ItemParser itemParser;
 
     @Before
     public void setUp() {
-        inout = asList("ITEM00001", "ITEM00002-5", "ITEM00001", "ITEM00003");
+        input = asList("ITEM00001", "ITEM00002-5", "ITEM00001", "ITEM00003");
+        itemParser = new ItemParser();
     }
+
 
     @Test
     public void should_return_items_given_lines() {
-        List<ShoppingItem> items = ItemParser.parseToItem(inout);
+        List<ShoppingItem> items = itemParser.parseToItem(input);
         assertThat(items.size(), is(3));
         assertItem(items.get(0), "ITEM00001", 2);
         assertItem(items.get(1), "ITEM00002", 5);
