@@ -38,7 +38,28 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 idea.project.vcs = "Git"
 
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+        resources.srcDirs = ['src/main/resources']
+    }
+    test {
+        java.srcDirs = ['src/test/unit/java', 'src/test/intg/java']
+        resources.srcDirs = ['src/test/unit/resources', 'src/test/intg/resources']
+    }
+}
+
 defaultTasks 'clean', 'build'
+
+test {
+    exclude '**/*IntegrationTest.class'
+}
+task unitTest(dependsOn: test)
+
+task integrationTest(type: Test) {
+    include '**/*IntegrationTest.class'
+}
+build.dependsOn integrationTest
 
 task wrapper(type: Wrapper) {
     gradleVersion = "2.14"

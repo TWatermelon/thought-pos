@@ -17,7 +17,7 @@ public class PromotionsController {
     @Autowired
     private PromotionsService promotionsService;
 
-//    @RequestMapping(method = POST, value = "/Promotions")
+//    @RequestMapping(method = POST, value = "/savePromotions")
     public ResponseEntity<?> savePromotions(@RequestParam String promotionsCode,
                                             @RequestBody Promotions promotions) {
         return new ResponseEntity<>(promotionsService.savePromotions(promotionsCode, promotions), CREATED);
