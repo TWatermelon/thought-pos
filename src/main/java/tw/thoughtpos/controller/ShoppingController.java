@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.thoughtpos.domain.Receipt;
-import tw.thoughtpos.register.ItemParser;
+import tw.thoughtpos.register.IParser;
 import tw.thoughtpos.service.ShoppingService;
 
 @RestController
@@ -20,9 +20,12 @@ public class ShoppingController {
     @Autowired
     private ShoppingService shoppingService;
 
+    @Autowired
+    private IParser itemParser;
+
     @RequestMapping(method = POST, value = "/shoppingItems")
     public ResponseEntity<?> generateReceipt(@RequestBody List<String> inputs) {
         return new ResponseEntity<>(new Receipt(shoppingService
-                .prepareBenefits(shoppingService.bindGoods(new ItemParser().parseToItem(inputs)))), OK);
+                .prepareBenefits(shoppingService.bindGoods(itemParser.parseToItem(inputs)))), OK);
     }
 }

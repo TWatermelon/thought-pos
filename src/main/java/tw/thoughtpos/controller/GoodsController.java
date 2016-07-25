@@ -13,20 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import tw.thoughtpos.domain.Goods;
-import tw.thoughtpos.service.DefaultGoodsService;
+import tw.thoughtpos.service.GoodsService;
 
 @RestController
 public class GoodsController {
     @Autowired
-    private DefaultGoodsService defaultGoodsService;
+    private GoodsService goodsService;
 
     @RequestMapping(method = POST, value = "/goods")
     public ResponseEntity<?> addGoods(@RequestBody Goods goods) {
-        return new ResponseEntity<>(defaultGoodsService.addGoods(goods), CREATED);
+        return new ResponseEntity<>(goodsService.addGoods(goods), CREATED);
     }
 
     @RequestMapping(method = GET, value = "/goods")
     public ResponseEntity<?> findGoods(@RequestParam String barcode) {
-        return new ResponseEntity<>(defaultGoodsService.findGoods(barcode), OK);
+        return new ResponseEntity<>(goodsService.findGoods(barcode), OK);
     }
 }

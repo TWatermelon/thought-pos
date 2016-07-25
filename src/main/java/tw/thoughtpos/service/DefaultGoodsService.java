@@ -7,7 +7,7 @@ import tw.thoughtpos.domain.Goods;
 import tw.thoughtpos.repository.GoodsRepository;
 
 @Service
-public class DefaultGoodsService implements GoodService {
+public class DefaultGoodsService implements GoodsService {
     @Autowired
     private GoodsRepository goodsRepository;
 

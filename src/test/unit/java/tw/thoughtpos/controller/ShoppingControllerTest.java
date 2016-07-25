@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 
 import tw.thoughtpos.domain.Receipt;
 import tw.thoughtpos.domain.ShoppingItem;
+import tw.thoughtpos.register.IParser;
 import tw.thoughtpos.service.ShoppingService;
 
 public class ShoppingControllerTest {
@@ -30,6 +31,9 @@ public class ShoppingControllerTest {
     @Mock
     private ShoppingService shoppingService;
 
+    @Mock
+    private IParser iParser;
+
     @Before
     public void setUp() {
         initMocks(this);
@@ -39,8 +43,12 @@ public class ShoppingControllerTest {
     public void should_prepare_benefits_when_given_input_list() {
         List<String> inputs = asList("ITEM000001-3");
         List<ShoppingItem> expectedItems = new ArrayList<>();
+        when(iParser.parseToItem(inputs)).thenReturn(asList(new ShoppingItem("ITEM000001", 3)));
+        when(shoppingService.bindGoods(asList(new ShoppingItem("ITEM000001", 3))))
+                .thenReturn(asList(new ShoppingItem("ITEM000001", 3)));
         when(shoppingService.prepareBenefits(asList(new ShoppingItem("ITEM000001", 3))))
                 .thenReturn(expectedItems);
+
 
         ResponseEntity<?> response = itemController.generateReceipt(inputs);
 

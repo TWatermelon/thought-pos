@@ -7,14 +7,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import tw.thoughtpos.domain.ShoppingItem;
+import org.springframework.stereotype.Component;
 
-public class ItemParser {
+import tw.thoughtpos.domain.ShoppingItem;
+@Component
+public class ItemParser implements IParser {
 
     private static final String SPLIT_CHAR = "-";
     private static final int DEFAULT_VALUE = 1;
     private static final int SPLIT_LENGTH = 2;
 
+    @Override
     public List<ShoppingItem> parseToItem(List<String> input) {
         List<ShoppingItem> shoppingItems = input.stream().map(this::splitOutItem).collect(toList());
         return merge(generateBarcodeAmountMap(shoppingItems));

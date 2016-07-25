@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.springframework.http.ResponseEntity;
 
 import tw.thoughtpos.domain.Goods;
-import tw.thoughtpos.service.DefaultGoodsService;
+import tw.thoughtpos.service.GoodsService;
 
 public class GoodsControllerTest {
     private static final String BARCODE = "ITEM00007";
@@ -22,7 +22,7 @@ public class GoodsControllerTest {
     private GoodsController goodsController;
 
     @Mock
-    private DefaultGoodsService defaultGoodsService;
+    private GoodsService defaultGoodsService;
 
     @Before
     public void setUp() throws Exception {
