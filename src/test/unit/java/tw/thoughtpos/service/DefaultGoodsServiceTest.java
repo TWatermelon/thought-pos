@@ -36,7 +36,7 @@ public class DefaultGoodsServiceTest {
         goods.setPrice(30d);
         goods.setUnit("支");
         when(defaultGoodsService.addGoods(goods)).thenReturn(goods);
-        assertThat(goodsRepository.addGoods(BARCODE, goods), is(goods));
+        assertThat(goodsRepository.addGoods(goods), is(goods));
     }
 
     @Test

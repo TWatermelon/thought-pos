@@ -36,7 +36,7 @@ public class GoodsRepositoryTest {
         apple.setUnit("斤");
         apple.setName("apple");
         apple.setPrice(6d);
-        goodsRepository.addGoods(APPLE_BARCODE, apple);
+        goodsRepository.addGoods(apple);
         Goods goodsActual = goodsRepository.getGoodsMap().get(APPLE_BARCODE);
         assertThat(goodsActual, is(apple));
     }
