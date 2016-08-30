@@ -36,13 +36,13 @@ public class DefaultGoodsServiceTest {
         goods.setPrice(30d);
         goods.setUnit("支");
         when(defaultGoodsService.addGoods(goods)).thenReturn(goods);
-        assertThat(goodsRepository.addGoods(goods), is(goods));
+        assertThat(goodsRepository.save(goods), is(goods));
     }
 
     @Test
     public void should_find_right_goods_given_barcode() {
         Goods expectedGoods = new Goods(BARCODE);
         when(defaultGoodsService.findGoods(BARCODE)).thenReturn(expectedGoods);
-        assertThat(goodsRepository.findGoods(BARCODE), is(expectedGoods));
+        assertThat(goodsRepository.findOne(BARCODE), is(expectedGoods));
     }
 }

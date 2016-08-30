@@ -45,7 +45,7 @@ public class DefaultShoppingServiceTest {
     @Before
     public void setUp() {
         initMocks(this);
-        when(goodsRepository.findGoods(APPLE_BARCODE))
+        when(goodsRepository.findOne(APPLE_BARCODE))
                 .thenReturn(createGoods(APPLE_BARCODE, APPLE_NAME, APPLE_PRICE));
     }
 

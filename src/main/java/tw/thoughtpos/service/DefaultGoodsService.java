@@ -12,12 +12,12 @@ public class DefaultGoodsService implements GoodsService {
     private GoodsRepository goodsRepository;
 
     public Goods addGoods(Goods goods) {
-        return goodsRepository.addGoods(goods);
+        return goodsRepository.save(goods);
     }
 
     @Override
     public Goods findGoods(String barcode) {
-        return goodsRepository.findGoods(barcode);
+        return goodsRepository.findOne(barcode);
     }
 
 }

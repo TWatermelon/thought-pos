@@ -3,6 +3,7 @@ package tw.thoughtpos.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -26,12 +27,12 @@ public class HttpUtil {
 
     private static String getContent(List<String> input, String postUrl) throws Exception {
         HttpURLConnection connection = getHttpURLConnection(postUrl);
-        PrintWriter out = new PrintWriter(connection.getOutputStream());
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(connection.getOutputStream(), "utf-8"));
         JSONArray jsonArray = new JSONArray();
         input.forEach(item -> jsonArray.add(item));
         out.print(jsonArray.toString());
         out.flush();
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
         String line;
         String result = "";
         while ((line = in.readLine()) != null) {

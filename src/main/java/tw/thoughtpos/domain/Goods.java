@@ -1,9 +1,14 @@
 package tw.thoughtpos.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Goods {
     private double price;
     private String name;
     private String unit;
+    @Id
     private String barcode;
 
     public Goods() {
@@ -50,4 +55,9 @@ public class Goods {
     public String getBarcode() {
         return barcode;
     }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
 }

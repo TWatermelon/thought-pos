@@ -1,8 +1,9 @@
 package tw.thoughtpos.repository;
 
-import tw.thoughtpos.domain.Goods;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface GoodsRepository {
-    Goods findGoods(String barcode);
-    Goods addGoods(Goods goods);
+import tw.thoughtpos.domain.Goods;
+@Repository
+public interface GoodsRepository extends CrudRepository<Goods, String> {
 }

@@ -26,7 +26,7 @@ public class DefaultShoppingService implements ShoppingService {
     }
 
     private void bindGoods(ShoppingItem shoppingItem) {
-        shoppingItem.setGoods(goodsRepository.findGoods(shoppingItem.getBarcode()));
+        shoppingItem.setGoods(goodsRepository.findOne(shoppingItem.getBarcode()));
     }
 
     public List<ShoppingItem> prepareBenefits(List<ShoppingItem> shoppingItems) {

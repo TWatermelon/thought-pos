@@ -28,12 +28,12 @@ public class GoodsControllerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     public void should_return_right_goods_given_barcode() throws Exception {
-        mockMvc.perform(get("/goods/{barcode}", "ITEM000098"))
+        mockMvc.perform(get("/goods").param("barcode", "ITEM000098"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.barcode").value("ITEM000098"))
-                .andExpect(jsonPath("$.name").value("可口可乐"))
-                .andExpect(jsonPath("$.price").value(2.50))
-                .andExpect(jsonPath("$.unit").value("瓶"));
+                .andExpect(jsonPath("$.name").value("banana"))
+                .andExpect(jsonPath("$.price").value(6.50))
+                .andExpect(jsonPath("$.unit").value("斤")).andDo(print());
 
     }
 
