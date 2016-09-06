@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource: # Database properties
-    url: jdbc:h2:/tmp/cagisterdb
+    url: jdbc:h2:/tmp/cagisterdb;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
 #    data: classpath:/load-test-data.sql
